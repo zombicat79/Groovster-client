@@ -24,3 +24,15 @@ button.navbar-button {
   color: white;
   text-decoration: none;
 }
+
+.artists-card > link > img {
+  width:100px; 
+  height: auto; 
+  border-radius: 25px;
+  margin: 15px;
+}
+
+.artists-card {
+  display:flex;
+  margin: 20px;
+}

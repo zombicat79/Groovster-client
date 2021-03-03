@@ -12,6 +12,7 @@ import Private from './pages/Private/Private';
 import Navbar from './components/Navbar/Navbar';
 import AnonRoute from './components/AnonRoute/AnonRoute';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Main from './components/Main/Main'
 
 
 class App extends Component {
@@ -27,6 +28,8 @@ class App extends Component {
           <AnonRoute exact path="/login" component={Login} />
 
           <PrivateRoute exact path="/private" component={Private} />
+
+          <PrivateRoute exact path="/main" component={Main} />
         </Switch>
       </div>
     );
