@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
+import Settings from './pages/Settings/Settings';
 import Private from './pages/Private/Private';
 
 // Components
@@ -27,6 +28,7 @@ class App extends Component {
           <AnonRoute exact path="/login" component={Login} />
 
           <PrivateRoute exact path="/private" component={Private} />
+          <PrivateRoute exact path="/settings" component={Settings} />
         </Switch>
       </div>
     );
