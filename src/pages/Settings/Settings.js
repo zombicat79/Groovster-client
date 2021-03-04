@@ -6,19 +6,57 @@ class Settings extends Component {
     state = {
         username: "",
         email: "",
-        profileIsOn: false
+        artistSearch: "",
+        genreSearch: "",
+        profileIsOn: false,
+        preferencesIsOn: false,
     }
 
     handleFormSubmit (event) {
         event.preventDefault();
         
         const id = this.props.user._id;
-        const { username, email } = this.state;
+        const { username, email, artistSearch, genreSearch } = this.state;
         
-        userService.modifyUser(id, {username, email})
-        .then( (data) => {
-            this.setState({ username: "", email: ""})
-        })
+        if (event.target.name === "modifyProfile") {
+            if (username) {
+                userService.modifyUser(id, {username})
+                .then( (data) => {
+                this.setState({ username: ""})
+                })
+                return;
+            }
+            if (email) {
+                userService.modifyUser(id, {email})
+                .then( (data) => {
+                this.setState({ email: "" })
+                })
+                return;
+            }
+            if (username && email) {
+                userService.modifyUser(id, {username, email})
+                .then( (data) => {
+                this.setState({ username: "", email: "" })
+                })
+                return;
+            }
+        }
+
+        if (event.target.name === "addArtist") {
+            userService.modifyUser(id, {$push: {preferences: artistSearch}})
+            .then( (data) => {
+            this.setState({ artistSearch: "" })
+            })
+            return;
+        }
+
+        if (event.target.name === "addGenre") {
+            userService.modifyUser(id, {$push: {preferences: genreSearch}})
+            .then( (data) => {
+            this.setState({ genreSearch: "" })
+            })
+            return;
+        }
     }
 
     handleChange = (event) => {
@@ -36,21 +74,47 @@ class Settings extends Component {
     }
 
     toggleProfile = () => {
-        const buttonState = this.state.profileIsOn
+        const buttonState = this.state.profileIsOn;
         this.setState({ profileIsOn: !buttonState })
     }
 
+    togglePreferences = () => {
+        const buttonState = this.state.preferencesIsOn;
+        this.setState({ preferencesIsOn: !buttonState })
+    }
+
     render() {
+        
         return (
             <div>
                 <div>
-                    <button>Change preferences</button>
+                    <button onClick={this.togglePreferences}>
+                        {this.state.preferencesIsOn ? "Hide preferences" : "Modify preferences"}
+                    </button>
+
+                    {this.state.preferencesIsOn 
+                    ? (<div><form name="addArtist" onSubmit={(event) => this.handleFormSubmit(event)}>
+                        <input type="text" name="artistSearch" value={this.state.artistSearch} 
+                        onChange={(event) => this.handleChange(event)} />
+                        <input type="submit" value="Add" />
+                        <div></div>
+                    </form>
+
+                    <form name="addGenre" onSubmit={(event) => this.handleFormSubmit(event)}>
+                        <input type="text" name="genreSearch" value={this.state.genreSearch} 
+                        onChange={(event) => this.handleChange(event)} />
+                        <input type="submit" value="Add" />
+                        <div></div>
+                    </form></div>)
+                    : null}
                 </div>
                 <div>
-                    <button onClick={this.toggleProfile}>Modify profile</button>
+                    <button onClick={this.toggleProfile}>
+                        {this.state.profileIsOn ? "Hide profile" : "Modify profile"}
+                    </button>
                     
                     {this.state.profileIsOn 
-                    ? (<div><form onSubmit={(event) => this.handleFormSubmit(event)}>
+                    ? (<div><form name="modifyProfile" onSubmit={(event) => this.handleFormSubmit(event)}>
                         <label>Username: </label>
                         <input type="text" name="username" placeholder={this.props.user.username} 
                         value={this.state.username} onChange={(event) => this.handleChange(event)} />
