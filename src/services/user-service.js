@@ -35,6 +35,7 @@ class UserService {
     return pr;
   };
 
+
   deleteUser = (id) => {
     const pr = this.api
     .delete(`/users/${id}`)

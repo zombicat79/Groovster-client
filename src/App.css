@@ -36,3 +36,10 @@ button.navbar-button {
   display:flex;
   margin: 20px;
 }
+
+.artist-img {
+  width:100px; 
+  height: auto; 
+  border-radius: 25px;
+  margin: 15px;
+}
