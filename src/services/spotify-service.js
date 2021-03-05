@@ -8,10 +8,10 @@ class SpotifyService {
     });
   }
 
-  getSearch = () => {
+  getArtist = (id) => {
     const pr = this.api
-    .get("/spotify/main")
-    .then( (response) => response.data)
+    .get(`/spotify/artist/${id}`)
+    .then( (response) => response.data.body)
 
     return pr;
   };

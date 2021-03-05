@@ -8,12 +8,15 @@ import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Settings from './pages/Settings/Settings';
 import Private from './pages/Private/Private';
+import Artist from './pages/Artist/Artist';
+import CreateEvent from './pages/CreateEvent/CreateEvent';
 
 // Components
 import Navbar from './components/Navbar/Navbar';
 import AnonRoute from './components/AnonRoute/AnonRoute';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Main from './components/Main/Main'
+
 
 
 class App extends Component {
@@ -32,6 +35,8 @@ class App extends Component {
 
           <PrivateRoute exact path="/main" component={Main} />
           <PrivateRoute exact path="/settings" component={Settings} />
+          <PrivateRoute exact path="/artist/:id" component={Artist} />
+          <PrivateRoute exact path="/artist/:id/create-event" component={CreateEvent} />
         </Switch>
       </div>
     );
