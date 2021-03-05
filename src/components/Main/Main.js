@@ -9,9 +9,14 @@ class Main extends Component {
   state = {
     search: " ",
     toggle: false,
-    searchArr: [],
     userId: "",
     preferences: [],
+    // searchArr: [],
+    searchingValue: [],
+    relatedArr: [],
+    oneArt: [],
+    randomArtists: [], 
+    SeveralArr:[],
   };
 
   handleChange = (event) => {
@@ -22,9 +27,8 @@ class Main extends Component {
     axios
       .post("http://localhost:5000/api/spotify/main", { search })
       .then((list) => {
-        console.log(list.data.body.artists.items);
-
-        this.setState({ searchArr: list.data.body.artists.items });
+        const array = list.data.body.artists.items;
+        this.setState({ searchingValue: array });
       })
       .catch((err) => {
         console.log("here is there error", err);
@@ -33,46 +37,41 @@ class Main extends Component {
 
   submitForm = (event) => {
     event.preventDefault();
-
-    const { search } = this.state;
-
-    axios
-      .post("http://localhost:5000/api/spotify/main", { search })
-      .then((data) => {
-        this.setState({ searchArr: data });
-      })
-      .catch((err) => {
-        console.log("here is there error", err);
-      });
+    console.log("small victory");
+    this.setState({search: ""})
+    this.innitArrays();
+    this.updatePref();
   };
+
+  innitArrays = () => {
+    this.setState({ searchingValue: [] });
+    this.setState({ oneArt : false })
+    this.setState({randomArtists: false})
+    this.setState({relatedArr: false})
+    this.setState({SeveralArr: false})
+  }
 
   getRandom = () => {
     axios
       .get("http://localhost:5000/api/spotify/main/no-preferences")
       .then((list) => {
-        this.setState({ searchArr: list.data.artists });
+        this.setState({ randomArtists: list.data.artists });
       })
-      .catch((err) => {
-        console.log("here is there error", err);
-      });
   };
 
   getRelatedOfOne = () => {
-    const userPref = this.props.user.preferences;
+    const index = this.state.preferences.length - 1;
+    const userPref = this.state.preferences[index];
 
     axios
       .post("http://localhost:5000/api/spotify/main/one-preference", {
         userPref,
       })
       .then((list) => {
-        if (this.state.searchArr === 0) {
-          this.setState({ searchArr: list.data.body.artists });
-        } else {
-          const expandedArr = [...this.state.searchArr, list.data.body.artists];
-          console.log(expandedArr[0]);
-
-          this.setState({ searchArr: expandedArr[0] });
-        }
+        const allArtists = list.data.body.artists;
+        // const copyArray = [...this.state.searchArr];
+        // allArtists.map((data) => copyArray.push(data));
+        this.setState({ relatedArr: allArtists });
       })
       .catch((err) => {
         console.log("here is there error", err);
@@ -80,64 +79,56 @@ class Main extends Component {
   };
 
   getSeveralArtists = () => {
-
+    this.innitArrays();
 
     const userId = this.props.user._id;
-    axios
-      .get(`http://localhost:5000/auth/update/${userId}`)
-      .then((result) => {
-        console.log("the result", result.data.preferences);
-        this.setState({ preferences: result.data.preferences });
-        const artistsArr = result.data.preferences
-        axios
+    console.log('get several artists');
+
+    axios.get(`http://localhost:5000/auth/update/${userId}`).then((result) => {
+      this.setState({ preferences: result.data.preferences });
+      const artistsArr = result.data.preferences;
+      axios
         .post("http://localhost:5000/api/spotify/main/preferences", {
-            artistsArr,
+          artistsArr,
         })
         .then((list) => {
-          console.log("here", list.data.body.artists);
-  
-          this.setState({ searchArr: list.data.body.artists });
-        })
-      })
+          console.log(list.data.body.artists);
+          
+          this.setState({ SeveralArr: list.data.body.artists });
+        });
+    })
 
-
-    const userPref = this.props.user.preferences;
-    console.log("userPref getseveralartist", userPref);
-    
-    axios
-      .post("http://localhost:5000/api/spotify/main/preferences", {
-        userPref,
-      })
-      .then((list) => {
-        console.log("here", list.data.body.artists);
-
-        this.setState({ searchArr: list.data.body.artists });
-      })
+    this.getRelatedOfOne();
   };
 
   getOneArtist = () => {
-    const userPref = this.props.user.preferences;
+    const userPref = this.state.preferences;
     axios
       .post("http://localhost:5000/api/spotify/main/singleArtist", { userPref })
-      .then((artist) => {
-        console.log(artist.data.body);
-        this.setState({ searchArr: artist.data.body });
-        console.log(this.state.searchArr.images[0].url);
+      .then((response) => {
+        const artist = response.data.body;
+
+        this.setState({ oneArt: [artist] });
       })
       .catch((err) => console.log(err));
+    this.getRelatedOfOne();
   };
 
   updatePref = () => {
-    this.setStatePref();
-    const userPref = this.props.user.preferences;
-    console.log("user pref", userPref);
-    if (userPref.length === 0) {
-      this.getRandom();
-    } else if (userPref.length === 1) {
-      this.getOneArtist();
-    } else if (userPref.length > 1) {
-      this.getSeveralArtists();
-    }
+    this.setState({ searchingValue: [] });
+    const userId = this.props.user._id;
+    axios.get(`http://localhost:5000/auth/update/${userId}`).then((result) => {
+      this.setState({ preferences: result.data.preferences }, () => {
+        const userPref = this.state.preferences;
+        if (userPref.length === 0) {
+          this.getRandom();
+        } else if (userPref.length === 1) {
+          this.getOneArtist();
+        } else if (userPref.length > 1) {
+          this.getSeveralArtists();
+        }
+      });
+    });
   };
 
   addToFav = (artistId) => {
@@ -145,32 +136,36 @@ class Main extends Component {
     userService
       .modifyUser(user, { $push: { preferences: artistId } })
       .then((data) => {
-        console.log("user modified");
-        this.setStatePref();
+        this.updatePref();
       })
       .catch((err) => console.log(err));
-
-    this.updatePref();
+    // this.updatePref();
   };
 
-  setStatePref = () => {
-    const userId = this.props.user._id;
-    axios
-      .get(`http://localhost:5000/auth/update/${userId}`)
-      .then((result) => {
-        console.log("the result", result.data.preferences);
-        this.setState({ preferences: result.data.preferences });
-        console.log("ffff", this.state.preferences);
-      })
-  };
+  removeFromFav = (artistId) => {
+    this.innitArrays();
+    const user = this.props.user._id;
+    userService.modifyUser(user, {$pull: {preferences: artistId}})
+    .then((data) => {
+      this.updatePref();
+    })
+  }
 
   componentDidMount() {
     this.updatePref();
   }
 
   render() {
+    console.log("state", this.state);
+    
     return (
       <div>
+
+        {this.state.preferences.length===0 && 
+        <h1>You have no favorite artists!</h1>
+
+        }
+
         <form onSubmit={this.submitForm}>
           <input
             name="search"
@@ -179,37 +174,125 @@ class Main extends Component {
             value={this.state.search}
             onChange={this.handleChange}
           />
-          <button>Find</button>
+          <button>clear</button>
         </form>
 
-        {this.state.searchArr.map((el) => {
-          return (
-            <div className="artists-card" key={el.id}>
-              <Link to={`/artist/${el.id}`}>
-                <img
-                  src={el.images[0].url}
-                  alt="artist-img"
-                  className="artist-img"
-                />
-                <h2>{el.name}</h2>
-              </Link>
-              <button onClick={() => this.addToFav(`${el.id}`)}>
-                Add to Favorites
-              </button>
-            </div>
-          );
-        })}
-
-        {/* <div className="artists-card" key={this.state.searchArr.id}>
-                <Link to={`/artist/${this.state.searchArr.id}`}>
-                    <img src={images[0].url} alt="artist-img" className="artist-img" />
-                    <h2>{name}</h2>
+{/* View when using search bar */}
+        {this.state.searchingValue &&
+          this.state.searchingValue.map((data) => {
+            return (
+              <div className="artists-card" key={data.id}>
+                <Link to={`/artist/${data.id}`}>
+                  {data.images[0] ? (
+                    <img
+                      src={data.images[0].url}
+                      alt="artist-img"
+                      className="artist-img"
+                    />
+                  ) : null}
+                  <h2>{data.name}</h2>
                 </Link>
-                <button>Add to Favorites</button>
-            </div> */}
+                <button onClick={() => this.addToFav(`${data.id}`)}>
+                  Add to Favorites
+                </button>
+              </div>
+            );
+          })}
 
-        <h1>You have no preferences yet check the most popular artists</h1>
-        <button>Set your preferences</button>
+{/* Display several favorite artists */}
+        {this.state.SeveralArr &&
+          this.state.SeveralArr.map((data) => {
+            return (
+              <div className="artists-card" key={data.id}>
+                <Link to={`/artist/${data.id}`}>
+                  {data.images[0] ? (
+                    <img
+                      src={data.images[0].url}
+                      alt="artist-img"
+                      className="artist-img"
+                    />
+                  ) : null}
+                  <h2>{data.name}</h2>
+                </Link>
+                <button onClick={() => this.removeFromFav(`${data.id}`)}>
+                  Remove from Favorites
+                </button>
+              </div>
+            );
+          })}
+
+{/* Display one artist & related artists */}
+        {this.state.oneArt && 
+            this.state.oneArt.map((el) => {
+              return (
+                <div className="artists-card" key={el.id}>
+                  <h2>Get one ARTIST</h2>
+                  <Link to={`/artist/${el.id}`}>
+                    {el.images && (
+                      <img
+                        src={el.images[0].url}
+                        alt="artist-img"
+                        className="artist-img"
+                      />
+                    )}
+                    <h2>{el.name}</h2>
+                  </Link>
+                  <button onClick={() => this.removeFromFav(`${el.id}`)}>
+                    Remove from favorites
+                  </button>
+                </div>
+              );
+            })
+          }
+        {this.state.relatedArr && 
+          this.state.relatedArr.map((el) => {
+            return (
+              <div className="artists-card" key={el.id}>
+              <h1>Related Artist to one pref</h1>
+                <Link to={`/artist/${el.id}`}>
+                  {el.images && (
+                    <img
+                      src={el.images[0].url}
+                      alt="artist-img"
+                      className="artist-img"
+                    />
+                  )}
+                  <h2>{el.name}</h2>
+                </Link>
+                <button onClick={() => this.addToFav(`${el.id}`)}>
+                  Add to favorites
+                </button>
+              </div>
+            );
+          })
+        }
+
+{/* Display Random Artists if no favorites */}
+        {this.state.randomArtists && 
+          this.state.randomArtists.map((el) => {
+            return (
+              <div className="artists-card" key={el.id}>
+              <h2>Random artists</h2>
+                <Link to={`/artist/${el.id}`}>
+                  {el.images && (
+                    <img
+                      src={el.images[0].url}
+                      alt="artist-img"
+                      className="artist-img"
+                    />
+                  )}
+                  <h2>{el.name}</h2>
+                </Link>
+                <button onClick={() => this.addToFav(`${el.id}`)}>
+                  Add to favorites
+                </button>
+              </div>
+            );
+          })
+        }
+
+
+        
       </div>
     );
   }
