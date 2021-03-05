@@ -8,29 +8,30 @@ class UserService {
     // this.api  is a reusable axios request base containing the base url (baseURL)
     // of the API and the Headers options ( `withCredentials: true` )
     this.api = axios.create({
-      baseURL: "http://localhost:5000/api",
+      baseURL: "http://localhost:5000/api/users",
       withCredentials: true,
     });
   }
 
-  /*getAll = () => {
-    const pr = this.api.get("/example");
+  getByUsername = (value) => {
+    const pr = this.api
+    .get(`/${value}`)
+    .then( (response) => response.data)
 
     return pr;
-  };*/
+  }
 
   getUser = (id) => {
     const pr = this.api
-    .get(`/users/${id}`)
+    .get(`/${id}`)
     .then( (response) => response.data)
 
     return pr;
   };
 
   modifyUser = (id, changes) => {
-    console.log(changes)
     const pr = this.api
-    .put(`/users/${id}`, changes)
+    .put(`/${id}`, changes)
     .then( (response) => response.data)
 
     return pr;
@@ -39,7 +40,7 @@ class UserService {
 
   deleteUser = (id) => {
     const pr = this.api
-    .delete(`/users/${id}`)
+    .delete(`/${id}`)
     .then( (response) => response.data)
 
     return pr;
