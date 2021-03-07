@@ -162,7 +162,7 @@ class Main extends Component {
       <div>
 
         {this.state.preferences.length===0 && 
-        <h1>You have no favorite artists!</h1>
+        <h1>Choose your favorite artists :)</h1>
 
         }
 
@@ -226,7 +226,6 @@ class Main extends Component {
             this.state.oneArt.map((el) => {
               return (
                 <div className="artists-card" key={el.id}>
-                  <h2>Get one ARTIST</h2>
                   <Link to={`/artist/${el.id}`}>
                     {el.images && (
                       <img
@@ -248,7 +247,6 @@ class Main extends Component {
           this.state.relatedArr.map((el) => {
             return (
               <div className="artists-card" key={el.id}>
-              <h1>Related Artist to one pref</h1>
                 <Link to={`/artist/${el.id}`}>
                   {el.images && (
                     <img
@@ -272,7 +270,6 @@ class Main extends Component {
           this.state.randomArtists.map((el) => {
             return (
               <div className="artists-card" key={el.id}>
-              <h2>Random artists</h2>
                 <Link to={`/artist/${el.id}`}>
                   {el.images && (
                     <img

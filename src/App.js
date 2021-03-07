@@ -16,6 +16,9 @@ import Navbar from './components/Navbar/Navbar';
 import AnonRoute from './components/AnonRoute/AnonRoute';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Main from './components/Main/Main'
+import musicPage from './components/musicPage/musicPage';
+import albumPage from './components/albumPage/albumPage';
+import Chat from './components/Chat/Chat'
 
 
 
@@ -37,6 +40,9 @@ class App extends Component {
           <PrivateRoute exact path="/settings" component={Settings} />
           <PrivateRoute exact path="/artist/:id" component={Artist} />
           <PrivateRoute exact path="/artist/:id/create-event" component={CreateEvent} />
+          <PrivateRoute exact path="/artist/:id/music" component={musicPage} />
+          <PrivateRoute exact path="/artist/album/track/:id" component={albumPage} />
+          <PrivateRoute exact path="/artist/chat/:id" component={Chat} />
         </Switch>
       </div>
     );

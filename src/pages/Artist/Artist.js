@@ -38,7 +38,6 @@ class Artist extends Component {
         this.retrieveArtist();
     }
 
-
     toggleSeeEvents = () => {
         this.setState({ seeEventsIsOn: !this.state.seeEventsIsOn})
     }
@@ -49,18 +48,35 @@ class Artist extends Component {
         return (
             <div>
                 <h1>{this.state.name}</h1>
-                <h2>{this.state.genres}</h2>
+                <h2>
+                    {this.state.genres.map((el) => {
+                        return <span>  {el.charAt(0).toUpperCase() + el.slice(1)}  |</span>
+                    })}
+                </h2>
                 <div>
                     <img src={this.state.picture} alt={`${this.state.name} cover`} 
                     height="300" width="300" />
                 </div>
+
                 <div>
                     <p>Popularity: {this.state.popularity}</p>
                     <p>Followers: {this.state.followers}</p>
                 </div>
-                <div>
-                    <button>See albums & tracks</button>
-                </div>
+
+
+                <Link to={`/artist/chat/${id}/`}>
+                    <div>
+                        <button>ENTER THE CHAT ROOM</button>
+                    </div>
+                </Link>
+
+
+                <Link to={`/artist/${id}/music`}>
+                    <div>
+                        <button>See albums & tracks</button>
+                    </div>
+                </Link>
+
                 <div>
                     <button onClick={this.toggleSeeEvents}>
                         {this.state.seeEventsIsOn ? "Hide" : "See related events"}
@@ -78,6 +94,9 @@ class Artist extends Component {
                     Add new event
                     </button>
                 </Link>
+                <button className="back-btn" onClick={this.props.history.goBack}>
+                   Go Back
+                </button>
             </div>
         )
     }

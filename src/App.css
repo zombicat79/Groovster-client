@@ -37,9 +37,15 @@ button.navbar-button {
   margin: 20px;
 }
 
-.artist-img {
+.artist-img, .album-image {
   width:100px; 
   height: auto; 
   border-radius: 25px;
   margin: 15px;
 }
+
+.album-box {
+  display: flex;
+  flex-direction: row;
+}
+

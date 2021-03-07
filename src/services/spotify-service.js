@@ -16,30 +16,26 @@ class SpotifyService {
     return pr;
   };
 
-  /* getUser = (id) => {
+  getAlbum = (id) => {
     const pr = this.api
-    .get(`/users/${id}`)
-    .then( (response) => response.data)
-
+    .get(`/spotify/artist/album/${id}`)
+    .then( (response) => response.data.body)
     return pr;
-  };
+  }
 
-  modifyUser = (id, changes) => {
-    console.log(changes)
+  getTopTracks = (id) => {
     const pr = this.api
-    .put(`/users/${id}`, changes)
-    .then( (response) => response.data)
-
+    .get(`/spotify/artist/top-tracks/${id}`)
+    .then( (response) => response.data.body)
     return pr;
-  };
+  }
 
-  deleteUser = (id) => {
+  getAlbumTracks = (id) => {
     const pr = this.api
-    .delete(`/users/${id}`)
-    .then( (response) => response.data)
-
+    .get(`/spotify/artist/album/track/${id}`)
+    .then( (response) => response.data.body.items)
     return pr;
-  }; */
+  }
 }
 
 // Create instance (object) containing all axios calls as methods
