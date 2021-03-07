@@ -1,3 +1,4 @@
+import { buildQueries } from '@testing-library/react';
 import React, { Component } from 'react'
 import { withAuth } from './../../context/auth-context';
 import userService from './../../services/user-service';

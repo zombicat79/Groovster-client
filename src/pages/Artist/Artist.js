@@ -65,11 +65,13 @@ class Artist extends Component {
                     <button onClick={this.toggleSeeEvents}>
                         {this.state.seeEventsIsOn ? "Hide" : "See related events"}
                     </button>
-                    <div>
+                    {this.state.seeEventsIsOn 
+                    ? (<div>
                         {this.state.events.map((oneEvent, i) => {
                             return (<p>{oneEvent.title}</p>)
                         })}
-                    </div>
+                        </div>) 
+                    : null}
                     
                 </div>
 

@@ -2,8 +2,9 @@ import React from 'react'
 
 function Home() {
   return (
-    <div> 
-      <h1>Home Page</h1>
+    <div id="cover-background"> 
+      <h1 id="main-title">Groovster</h1>
+      <h2 id="motto">Meet with other band fanatics</h2>
     </div>
   )
 }
