@@ -7,7 +7,6 @@ import Home from './pages/Home/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Settings from './pages/Settings/Settings';
-import Private from './pages/Private/Private';
 import Artist from './pages/Artist/Artist';
 import CreateEvent from './pages/CreateEvent/CreateEvent';
 

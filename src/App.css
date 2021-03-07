@@ -8,8 +8,15 @@ html, body {
 
 /* HOME, LOGIN, SIGNUP PAGES */
 
-#cover-background {
+.dark {
+  background-image: url("./images/concert-crowd-dark.jpg");
+}
+
+.light {
   background-image: url("./images/concert-crowd.jpg");
+}
+
+#cover-background {
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
@@ -116,8 +123,16 @@ html, body {
   margin: 15px;
 }
 
+/* SETTINGS PAGES */
+
+main {
+  margin-top: 30vw;
+}
+
 @media screen and (min-width: 540px) {
   
+/* HOME, LOGIN, SIGNUP PAGES */
+
   #cover-background-expanded {
     height: 100%;
   }

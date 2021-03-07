@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { withAuth } from './../../context/auth-context';
+import { withMode } from './../../context/mode-context';
 
 class Login extends Component {
-  state = { username: "", password: "" };
+  state = { 
+    username: "",
+    password: "",
+    mode: "light"
+   };
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -15,11 +20,24 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
+  handleMode = () => {
+    if (this.props.modeIsDark === true) {
+      this.setState({ mode: "dark" })
+    }
+    else {
+      this.setState({ mode: "light" })
+    }
+  }
+
+  componentDidMount() {
+    this.handleMode();
+  }
+
   render() {
     const { username, password } = this.state;
 
     return (
-      <div id="cover-background">
+      <div id="cover-background" className={this.state.mode}>
        <form className="input-form" onSubmit={this.handleFormSubmit}>
           
           <label>Username</label>
@@ -36,4 +54,4 @@ class Login extends Component {
   }
 }
 
-export default withAuth(Login);
+export default withAuth(withMode(Login));
