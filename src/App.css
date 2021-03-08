@@ -49,3 +49,21 @@ button.navbar-button {
   flex-direction: row;
 }
 
+.chat-container {
+  border: 1px solid darkblue;
+  max-width: 400px;
+}
+
+#messages {
+  border: 1px solid green;
+  max-width: 300px;
+  max-height: 500px;
+}
+
+.message-display {
+  border: 1px solid grey;
+  margin: 5px;
+}
+
+
+
