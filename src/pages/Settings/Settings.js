@@ -10,6 +10,7 @@ class Settings extends Component {
     state = {
         username: "",
         email: "",
+        image: "",
         artistSearch: "",
         genreSearch: "",
         profileIsOn: false,
@@ -20,7 +21,7 @@ class Settings extends Component {
         event.preventDefault();
         
         const id = this.props.user._id;
-        const { username, email, artistSearch, genreSearch } = this.state;
+        const { username, email, image, artistSearch, genreSearch } = this.state;
         
         if (event.target.name === "modifyProfile") {
             if (username) {
@@ -34,6 +35,13 @@ class Settings extends Component {
                 userService.modifyUser(id, {email})
                 .then( (data) => {
                 this.setState({ email: "" })
+                })
+                return;
+            }
+            if (image) {
+                userService.modifyUser(id, {image})
+                .then( (data) => {
+                this.setState({ picture: "" })
                 })
                 return;
             }
@@ -78,8 +86,6 @@ class Settings extends Component {
     }
 
     toggleProfile = () => {
-        console.log(this.props.toggleMode)
-        console.log(this.props.modeIsDark)
         const buttonState = this.state.profileIsOn;
         this.setState({ profileIsOn: !buttonState })
     }
@@ -124,7 +130,7 @@ class Settings extends Component {
                     </button>
                     
                     {this.state.profileIsOn 
-                    ? (<div><form name="modifyProfile" onSubmit={(event) => this.handleFormSubmit(event)}>
+                    ? (<div><form name="modifyProfile" enctype="multipart/form-data" onSubmit={(event) => this.handleFormSubmit(event)}>
                         <label>Username: </label>
                         <input type="text" name="username" placeholder={this.props.user.username} 
                         value={this.state.username} onChange={(event) => this.handleChange(event)} />
@@ -132,6 +138,10 @@ class Settings extends Component {
                         <label>Email: </label>
                         <input type="email" name="email" placeholder={this.props.user.email} 
                         value={this.state.email} onChange={(event) => this.handleChange(event)} />
+
+                        <label>Picture: </label>
+                        <input type="file" name="image" value={this.state.image} 
+                        onChange={(event) => this.handleChange(event)} />
 
                         <label>Password :</label>
                         <input />
