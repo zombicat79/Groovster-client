@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+nav {
+    height: 20vw;
+    width: 100%;
+    background-color: green;
+    border-bottom: 2vw solid greenyellow;
+    font-family: 'Roboto', sans-serif;
+    font-size: 4vw;
+    z-index: 1;
+    position: fixed;
+    top: 0vw;
+}
+
+#logo {
+    width: 13vw;
+    margin-left: 5vw;
+    margin-top: 1.5vw;
+}
+
+#navbar-in { 
+    display: flex;
+    justify-content: space-between;
+    padding: 2vw 0px; 
+    max-height: 15vw;
+  }
+  
+  #navbar-out { 
+    display: flex;
+    justify-content: center;
+    padding: 2vw 0px; 
+    max-height: 15vw;
+  }
+  
+  button.navbar-button {
+    padding: 5px 20px;
+    width: 30vw;
+    height: 12vw;
+    margin: 1vw 3vw;
+    border-radius: 3px;
+    background-color: greenyellow;
+    font-size: 4vw;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  #home-btn {
+    color: white;
+    text-decoration: none;
+  }
+
+  @keyframes menu {
+      from {height: 0vw;}
+      to {height: 50vw;}
+  }
+
+  #menu-icon {
+    width: 13vw;
+    margin-right: 7vw;
+    margin-top: 1.5vw;
+  }
+
+  #menu-unfold {
+      background-color: greenyellow;
+      font-size: 5vw;
+      left: 55vw;
+      width: 45vw;
+      height: 50vw;
+      animation-name: menu;
+      animation-duration: 0.1s;
+      padding-top: 15vw;
+      padding-bottom: 0px;
+  }
+
+  .welcome {
+      font-size: 5vw;
+  }
+
+  #user-welcome {
+      display: none;
+  }
+
+  #menu-close {
+      position: absolute;
+      left: 90vw;
+      top: 5vw;
+  }
+
+  .menu-item {
+      margin-top: 5vw;
+      margin-left: 5vw;
+  }
+
+  .menu-link {
+      text-decoration: none;
+  }

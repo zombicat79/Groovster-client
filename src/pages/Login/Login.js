@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import { withAuth } from './../../context/auth-context';
+import { withMode } from './../../context/mode-context';
 
 class Login extends Component {
-  state = { username: "", password: "" };
+  state = { 
+    username: "",
+    password: "",
+    mode: "light"
+   };
 
   handleFormSubmit = event => {
     event.preventDefault();
     const { username, password } = this.state;
-    // Call function coming from AuthProvider ( via withAuth )
     this.props.login(username, password);
   };
 
@@ -16,26 +20,38 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
+  handleMode = () => {
+    if (this.props.modeIsDark === true) {
+      this.setState({ mode: "dark" })
+    }
+    else {
+      this.setState({ mode: "light" })
+    }
+  }
+
+  componentDidMount() {
+    this.handleMode();
+  }
+
   render() {
     const { username, password } = this.state;
 
     return (
-      <div>
-        <h1>Login</h1>
-
-        <form onSubmit={this.handleFormSubmit}>
+      <div id="cover-background" className={this.state.mode}>
+       <form className="input-form" onSubmit={this.handleFormSubmit}>
           
-          <label>Username:</label>
+          <label>Username</label>
           <input type="text" name="username" value={username} onChange={this.handleChange}/>
 
-          <label>Password:</label>
+          <label>Password</label>
           <input type="password" name="password" value={password} onChange={this.handleChange} />
 
-          <input type="submit" value="Login" />
+          <input id="submit-button"type="submit" value="Go!" />
+
         </form>
       </div>
     );
   }
 }
 
-export default withAuth(Login);
+export default withAuth(withMode(Login));

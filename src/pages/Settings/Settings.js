@@ -1,6 +1,10 @@
+import { buildQueries } from '@testing-library/react';
 import React, { Component } from 'react'
 import { withAuth } from './../../context/auth-context';
+import { withMode } from './../../context/mode-context';
 import userService from './../../services/user-service';
+
+import './../../App.css'  
 
 class Settings extends Component {
     state = {
@@ -74,6 +78,8 @@ class Settings extends Component {
     }
 
     toggleProfile = () => {
+        console.log(this.props.toggleMode)
+        console.log(this.props.modeIsDark)
         const buttonState = this.state.profileIsOn;
         this.setState({ profileIsOn: !buttonState })
     }
@@ -83,10 +89,14 @@ class Settings extends Component {
         this.setState({ preferencesIsOn: !buttonState })
     }
 
+    toggleMode = () => {
+        this.props.toggleMode();
+    }
+
     render() {
         
         return (
-            <div>
+            <main>
                 <div>
                     <button onClick={this.togglePreferences}>
                         {this.state.preferencesIsOn ? "Hide preferences" : "Modify preferences"}
@@ -133,14 +143,14 @@ class Settings extends Component {
                     : null}
                 </div>
                 <div>
-                    <button>Switch to dark mode</button>
+                    <button onClick={this.toggleMode}>Switch to dark mode</button>
                 </div>
                 <div>
                     <button onClick={this.props.logout}>Log out</button>
                 </div>
-            </div>
+            </main>
         )
     }
 }
 
-export default withAuth(Settings);
+export default withAuth(withMode(Settings));

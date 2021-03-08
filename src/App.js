@@ -7,7 +7,6 @@ import Home from './pages/Home/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Settings from './pages/Settings/Settings';
-import Private from './pages/Private/Private';
 import Artist from './pages/Artist/Artist';
 import CreateEvent from './pages/CreateEvent/CreateEvent';
 
@@ -33,8 +32,6 @@ class App extends Component {
 
           <AnonRoute exact path="/signup" component={Signup} />
           <AnonRoute exact path="/login" component={Login} />
-
-          <PrivateRoute exact path="/private" component={Private} />
 
           <PrivateRoute exact path="/main" component={Main} />
           <PrivateRoute exact path="/settings" component={Settings} />
