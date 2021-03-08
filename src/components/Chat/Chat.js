@@ -29,7 +29,7 @@ import ChatRoom from './ChatRoom';
 
     render() {
         return (
-            <div>
+            <div className="chat-page">
                 <h1>Chat with other fans of {this.state.name}</h1>
                 <ChatRoom username={this.state.name}/>
                 <button className="back-btn" onClick={this.props.history.goBack}>

@@ -1,22 +1,23 @@
 import io from "socket.io-client";
 
-import React from "react";
+import React, {component} from "react";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { withAuth } from "./../../context/auth-context";
 
 
-const username = "you";
 
 const socket = io("http://localhost:5000", {
-  transports: ["websocket", "polling"]
+    transports: ["websocket", "polling"]
 });
 
-const ChatRoom = ({}) => {
-  const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
 
+const ChatRoom = (props) => {
+    const [users, setUsers] = useState([]);
+    const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState([]);
+    
+    const username = props.user.username;
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -48,7 +49,6 @@ const ChatRoom = ({}) => {
     setMessage("");
   };
   
-
   return (
     <div className="chat-container">
       <div className="row">
@@ -60,12 +60,11 @@ const ChatRoom = ({}) => {
         <div className="col-md-8">
           <h6>Messages</h6>
           <div id="messages">
-            {messages.map(({ username, date, text }, index) => (
+            {messages.map(({ user, date, text }, index) => (
               <div key={index} className="message-display">
                 <div className="col-md-3">
-                  {moment(date).format("h:mm")}
+                  {moment(date).format("h:mm")}   {username}
                 </div>
-                <div className="col-md-2">{username}</div>
                 <div className="col-md-2">{text}</div>
               </div>
             ))}
@@ -88,7 +87,7 @@ const ChatRoom = ({}) => {
           </form>
         </div>
         <div className="col-md-4">
-          <h6>Users</h6>
+          <h6>Connected to the chat:</h6>
           <ul id="users">
             {users.map(({ name, id }) => (
               <li key={id}>{name}</li>
