@@ -6,17 +6,54 @@ html, body {
   padding: 0;
 }
 
+.page-margin-light {
+  padding-left: 15vw;
+  padding-right: 15vw;
+}
+
+.page-margin-dark {
+  padding-right: 24vw;
+}
+
+.main-light {
+  padding-top: 30vw;
+  padding-bottom: 30vw;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+}
+
+.main-dark {
+  background-color: black;
+  margin: 0;
+  padding-top: 30vw;
+  padding-left: 25vw;
+  padding-bottom: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+}
+
+.regular-text-light {
+  font-family: 'Roboto', sans-serif;
+  font-size: 5vw;
+  line-height: 8vw;
+  text-align: center;
+}
+
+.regular-text-dark {
+  color: yellow;
+  font-family: 'Roboto', sans-serif;
+  font-size: 5vw;
+  line-height: 8vw;
+  text-align: center;
+}
+
 /* HOME, LOGIN, SIGNUP PAGES */
 
-.dark {
-  background-image: url("./images/concert-crowd-dark.jpg");
-}
-
-.light {
+#cover-background-light {
+  margin: 0;
   background-image: url("./images/concert-crowd.jpg");
-}
-
-#cover-background {
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
@@ -26,7 +63,19 @@ html, body {
   z-index: 0;
 }
 
-#cover-background-expanded {
+#cover-background-dark {
+  margin: 0;
+  background-image: url("./images/concert-crowd-dark.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 22vw;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+#cover-background-expanded-light {
   background-image: url("./images/concert-crowd.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -37,20 +86,46 @@ html, body {
   z-index: 0;
 }
 
-#main-title {
+#cover-background-expanded-dark {
+  background-image: url("./images/concert-crowd-dark.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 22vw;
+  height: 220vw;
+  width: 100%;
+  z-index: 0;
+}
+
+#main-title-light {
   font-family: 'Righteous', cursive;
   font-size: 15vw;
   text-align: center;
   margin-bottom: 0px;
 }
 
-#motto {
+#main-title-dark {
+  color: yellow;
+  font-family: 'Righteous', cursive;
+  font-size: 15vw;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+#motto-light {
   font-family: 'Roboto', sans-serif;
   font-size: 5vw;
   text-align: center;
 }
 
-.input-form {
+#motto-dark {
+  color: yellow;
+  font-family: 'Roboto', sans-serif;
+  font-size: 5vw;
+  text-align: center;
+}
+
+.input-form-light {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -59,15 +134,31 @@ html, body {
   margin-left: 25vw;
 }
 
-.input-form label {
+.input-form-dark {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+  margin-left: 25vw;
+}
+
+.input-form-light label {
   font-family: 'Roboto', sans-serif;
   font-size: 7.5vw;
   text-align: center;
 }
 
-.input-form input {
+.input-form-dark label {
+  color: yellow;
+  font-family: 'Roboto', sans-serif;
+  font-size: 7.5vw;
+  text-align: center;
+}
+
+.input-form-light input {
   margin-bottom: 2vw;
-  background-color: rgb(173, 255, 47, 0.5);
+  background-color: rgb(173, 255, 47, 0.7);
   height: 10vw;
   border-radius: 20vw;
   border: 2px solid green;
@@ -76,7 +167,18 @@ html, body {
   text-align: center;
 }
 
-#submit-button {
+.input-form-dark input {
+  margin-bottom: 2vw;
+  background-color: rgb(64, 224, 208, 0.5);
+  height: 10vw;
+  border-radius: 20vw;
+  border: 2px solid turquoise;
+  font-family: 'Roboto', sans-serif;
+  font-size: 5vw;
+  text-align: center;
+}
+
+#submit-button-light {
   color: white;
   font-family: 'Roboto', sans-serif;
   font-size: 5vw;
@@ -89,7 +191,48 @@ html, body {
   border: 2px solid greenyellow;
 }
 
-#account-yet {
+#submit-button-dark {
+  color: yellow;
+  font-family: 'Roboto', sans-serif;
+  font-size: 5vw;
+  height: 20vw;
+  width: 20vw;
+  margin-left: 15vw;
+  margin-top: 20vw;
+  border-radius: 50vw;
+  background-color: blue;
+  border: 2px solid turquoise;
+}
+
+#browse-button-light {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 4vw;
+  text-align: center;
+  height: 20vw;
+  width: 20vw;
+  margin-left: 38vw;
+  margin-top: 20vw;
+  border-radius: 50vw;
+  background-color: green;
+  border: 2px solid greenyellow;
+}
+
+#browse-button-dark {
+  color: yellow;
+  font-family: 'Roboto', sans-serif;
+  font-size: 5vw;
+  text-align: center;
+  height: 20vw;
+  width: 20vw;
+  margin-left: 38vw;
+  margin-top: 20vw;
+  border-radius: 50vw;
+  background-color: blue;
+  border: 2px solid turquoise;
+}
+
+#account-yet-light {
   font-family: 'Roboto', sans-serif;
   font-size: 3vw;
   text-align: center;
@@ -97,10 +240,25 @@ html, body {
   text-decoration: none;
 }
 
-#account-yet p {
+#account-yet-dark {
+  font-family: 'Roboto', sans-serif;
+  font-size: 3vw;
+  text-align: center;
+  color: yellow;
+  text-decoration: none;
+}
+
+#account-yet-light p {
   background-color: green;
   border-bottom: 2px solid greenyellow;
   border-top: 2px solid greenyellow;
+  padding: 3vw;
+}
+
+#account-yet-dark p {
+  background-color: blue;
+  border-bottom: 2px solid turquoise;
+  border-top: 2px solid turquoise;
   padding: 3vw;
 }
 
@@ -146,14 +304,6 @@ html, body {
 
 .chat-page {
   margin: 100px 15px 0px 15px;
-}
-
-
-
-/* SETTINGS PAGES */
-
-main {
-  margin-top: 30vw;
 }
 
 @media screen and (min-width: 540px) {

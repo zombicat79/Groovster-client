@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+#app-name-light {
+    font-family: 'Righteous', cursive;
+    font-size: 15vw;
+}
+
+#app-name-dark {
+    position: relative;
+    color: yellow;
+    font-family: 'Righteous', cursive;
+    font-size: 15vw;
+    right: 9vw;
+}
+
+#bullet-point-light {
+    margin-top: 10vw;
+    margin-bottom: 10vw;
+}
+
+#bullet-point-dark {
+    color: yellow;
+    margin-top: 10vw;
+    margin-bottom: 10vw;
+}
+
+#bullet-point-light li {
+    margin-top: 3vw;
+}
+
+#bullet-point-dark li {
+    position: relative;
+    right: 3vw;
+    color: yellow;
+    margin-top: 3vw;
+    line-height: 7vw;
+    text-align: left;
+}
+
+#personal-link-container-light {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 8vw;
+}
+
+#personal-link-container-dark {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 8vw;
+}
+
+#personal-link-container-light a {
+    color: green;
+    font-family: 'Righteous', cursive;
+    font-size: 8vw;
+    text-decoration: none;
+}
+
+#personal-link-container-dark a {
+    color: turquoise;
+    font-family: 'Righteous', cursive;
+    font-size: 8vw;
+    text-decoration: none;
+}
+
+#picture-clement-light {
+    width: 58vw;
+    height: 58vw;
+}
+
+#picture-clement-dark {
+    position: relative;
+    right: 2vw;
+    width: 58vw;
+    height: 58vw;
+}
+
+#picture-david-light {
+    width: 50vw;
+    height: 50vw;
+}
+
+#picture-david-dark {
+    position: relative;
+    left: 1vw;
+    width: 50vw;
+    height: 50vw;
+}
+
+#ironhack-logo-light {
+    position: relative;
+    left: 24vw;
+    width: 20vw;
+    height: 20vw;
+    margin-top: 20vw;
+}
+
+#ironhack-logo-dark {
+    position: relative;
+    left: 16vw;
+    width: 20vw;
+    height: 20vw;
+    margin-top: 20vw;
+}

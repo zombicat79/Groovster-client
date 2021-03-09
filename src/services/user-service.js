@@ -15,7 +15,7 @@ class UserService {
 
   getByUsername = (value) => {
     const pr = this.api
-    .get(`/${value}`)
+    .get(`/search/${value}`)
     .then( (response) => response.data)
 
     return pr;
