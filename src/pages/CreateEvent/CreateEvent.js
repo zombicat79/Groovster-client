@@ -10,7 +10,8 @@ class CreateEvent extends Component {
         eventDate: "",
         participantSearch: "",
         searchResults: [],
-        eventParticipants: []
+        eventParticipants: [],
+        eventLocation: "",
     }
 
     handleChange = (event) => {
@@ -31,12 +32,14 @@ class CreateEvent extends Component {
         event.preventDefault();
         const artistId = this.props.match.params.id;
         const userId = this.props.user._id
-        const {eventTitle, eventDate, eventDescription, eventParticipants} = this.state
+        const {eventTitle, eventDate, eventDescription, eventParticipants, eventLocation} = this.state
 
-        eventService.createEvent(artistId, userId, {title: eventTitle, description: eventDescription, date: eventDate, participants: eventParticipants})
+        eventService.createEvent(artistId, userId, {title: eventTitle, description: eventDescription, date: eventDate, participants: eventParticipants, location: eventLocation})
         .then( (data) => {
-            this.setState({eventTitle: "", eventDate: "", eventDescription: "", eventParticipants})
+            this.setState({eventTitle: "", eventDate: "", eventDescription: "", eventParticipants, eventLocation:""})
         });
+        this.props.history.push(`/artist/${artistId}`)
+
     }
 
     addEventParticipant = (event) => {
@@ -69,10 +72,16 @@ class CreateEvent extends Component {
                     </div>
 
                     <div>
+                    <label>Location</label>
+                    <input type="text" name="eventLocation" 
+                    value={this.state.eventLocation} onChange={(event) => this.handleChange(event)} />
+                    </div>
+
+                    {/* <div>
                     <h3>Search for participants:</h3>
                     <input type="text" name="participantSearch" 
                     value={this.state.participantSearch} onChange={(event) => this.handleChange(event)} />    
-                    </div>
+                    </div> */}
 
                     <div>
                         {this.state.searchResults.map((oneResult, i) => {

@@ -22,6 +22,7 @@ import musicPage from './components/musicPage/musicPage';
 import albumPage from './components/albumPage/albumPage';
 import Chat from './components/Chat/Chat'
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import EventPage from './components/EventPage/EventPage'; 
 
 class App extends Component {
   state = {
@@ -51,6 +52,7 @@ class App extends Component {
           <PrivateRoute exact path="/artist/album/track/:id" component={albumPage} />
           <PrivateRoute exact path="/artist/chat/:id" component={Chat} />
           <PrivateRoute exact path="/profile/:id" component={ProfilePage} />
+          <PrivateRoute exact path="/artist/event/:id" component={EventPage} />
 
         </Switch>
       </div>

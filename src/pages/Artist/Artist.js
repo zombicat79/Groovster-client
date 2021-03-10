@@ -105,7 +105,7 @@ class Artist extends Component {
           {this.state.seeEventsIsOn ? (
             <div>
               {this.state.events.map((oneEvent, i) => {
-                return <p>{oneEvent.title}</p>;
+                return <Link to={`/artist/event/${oneEvent._id}`} key={oneEvent._id}>{oneEvent.title}</Link>;
               })}
             </div>
           ) : null}

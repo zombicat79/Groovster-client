@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withAuth } from './../../context/auth-context';
 import { withMode } from './../../context/mode-context';
 import userService from './../../services/user-service';
-import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -12,7 +11,6 @@ import avatarDark from './../../images/default-avatar-dark.png'
 import './../../App.css'  
 import './Settings.css'
 
-import spotifyService from '../../services/spotify-service';
 
 class Settings extends Component {
     state = {
@@ -119,11 +117,11 @@ class Settings extends Component {
 
                     <label>Picture: </label>
                     { this.state.image &&
-                        <img id="selected-img" src={this.state.image === "/static/media/default-avatar.eb8ac4ec.png"
+                        <img id="selected-img" src={this.state.image === "/static/media/default-avatar.eb8ac4ec.png" 
                                 ? this.state.mode === "light" 
                                     ? avatarLight 
                                     : avatarDark
-                                : this.state.image} />
+                                : this.state.image} alt="user" />
                     }
                     <input 
                         id={`image-input-${this.state.mode}`}

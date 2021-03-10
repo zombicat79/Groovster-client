@@ -387,7 +387,7 @@ a {
 
 /* SETTINGS PAGES */
 
-main {
+main, .event-page {
   margin-top: 30vw;
 }
 

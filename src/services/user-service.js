@@ -41,7 +41,6 @@ class UserService {
     const pr = this.api
     .put(`/settings/${id}`, changes)
     .then( (response) => response.data)
-
     return pr;
   };
 

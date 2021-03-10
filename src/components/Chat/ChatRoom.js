@@ -1,10 +1,12 @@
 import io from "socket.io-client";
-import React, { useEffect, useState, useRef}  from "react";
+import React, { useEffect, useState, useRef } from "react";
 import moment from "moment";
 import { withAuth } from "./../../context/auth-context";
-import {Link} from 'react-router-dom' 
+import { Link } from "react-router-dom";
+import userService from "./../../services/user-service";
 
-let socket ; 
+let socket;
+let chatId;
 
 const ChatRoom = (props) => {
   const [users, setUsers] = useState([]);
@@ -12,22 +14,33 @@ const ChatRoom = (props) => {
   const [messages, setMessages] = useState([]);
   const [isReady, setIsReady] = useState(false);
 
-  const username = props.user.username;
-  // const chat = props.user.chat; 
   const dummy = useRef();
+  const username = props.user.username;
 
+  // Find the chat's params & make the conditionnal (chatParams === text.chatId )
+  // const {idChat} = props.match.params;
+  // console.log("idChat", idChat);
+  
+
+  userService
+    .getUser(props.user._id)
+    .then((data) => {
+      chatId = data.chat;
+      console.log(data.chat);
+    })
+    .catch((err) => console.log(err));
 
   // run when the component mounts
   useEffect(() => {
     socket = io(process.env.REACT_APP_API_URL, {
-      transports: ["websocket", "polling"], 
+      transports: ["websocket", "polling"],
       forceNew: true,
     });
 
-  //   socket.on('reconnect', function() {
-  //     socket.emit("username", username);
-  //     setIsReady(true);
-  // });
+    //   socket.on('reconnect', function() {
+    //     socket.emit("username", username);
+    //     setIsReady(true);
+    // });
 
     socket.on("connect", () => {
       socket.emit("username", username);
@@ -39,12 +52,15 @@ const ChatRoom = (props) => {
     });
 
     socket.on("message", (message) => {
+      console.log("message", message);
+      // setMessages((messages) => [...messages, message]);
       setMessages((messages) => [...messages, message]);
+
     });
 
     socket.on("connected", (user) => {
-      console.log(user);
-      
+      console.log("user", user);
+
       setUsers((users) => [...users, user]);
     });
 
@@ -60,20 +76,20 @@ const ChatRoom = (props) => {
 
     // clean up and disconnect the user before the component unmounts
     return () => {
-      socket.disconnect(); 
-    }
+      socket.disconnect();
+    };
   }, []);
 
-
   const submit = (event) => {
+
+    console.log("chat Sent", chatId);
+
+
     event.preventDefault();
-    socket.emit("send", message);
+    socket.emit("send", ({message, chatId}));
     setMessage("");
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
+    dummy.current.scrollIntoView({ behavior: "smooth" });
   };
-
-  
-
 
   return (
     <div className="chat-container">
@@ -88,7 +104,7 @@ const ChatRoom = (props) => {
       <div className="row">
         <div className="col-md-8">
           <div id="messages">
-            {messages.map(({ user, date, text, chat }, index) => (
+            {messages.map(({ user, date, text }, index) => (
               <div
                 key={index}
                 className={`${
@@ -97,22 +113,23 @@ const ChatRoom = (props) => {
                     : "message-display receiver"
                 }`}
               >
-              {/* <h1>{chat}</h1> */}
+                <p>CHATID: {text.chatId}</p>
                 <div className="col-md-3">
-                  <span className="time-chat">{moment(date).format("h:mm")}   </span> 
+                  <span className="time-chat">
+                    {moment(date).format("h:mm")}{" "}
+                  </span>
                   {/* {`${user.name === username ? "" : user.name}`} */}
 
-                  {user.name !== username &&  
-                    <Link to={`/profile/${user.name}`} >
-                      <span className="name-link">{user.name}</span>  
+                  {user.name !== username && (
+                    <Link to={`/profile/${user.name}`}>
+                      <span className="name-link">{user.name}</span>
                     </Link>
-                  }
-                  
+                  )}
                 </div>
-                <div className="col-md-2">{text}</div>
+                <div className="col-md-2">{text.message}</div>
               </div>
             ))}
-          <span ref={dummy} className="dummy"></span>
+            <span ref={dummy} className="dummy"></span>
           </div>
           <form onSubmit={submit} id="form">
             <div className="input-group">

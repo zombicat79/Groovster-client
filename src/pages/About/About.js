@@ -1,7 +1,6 @@
 import React from 'react'
 import { withAuth } from './../../context/auth-context'
 import { withMode } from './../../context/mode-context'
-import { Link } from 'react-router-dom';
 
 import './../../App.css'
 import './About.css';
@@ -47,16 +46,16 @@ class About extends React.Component {
         <div className={`page-margin-${this.state.mode}`} id={`personal-link-container-${this.state.mode}`}>
             <a href="https://www.linkedin.com/in/clement-vallat/" target="blank">
                 <h3>Clément Vallat</h3>
-                <img id={`picture-clement-${this.state.mode}`} src={this.state.mode === "light" ? clementLight : clementDark} />
+                <img id={`picture-clement-${this.state.mode}`} src={this.state.mode === "light" ? clementLight : clementDark} alt="img-clement"/>
             </a>
             <a href="https://www.linkedin.com/in/david-castejon-ferrer/" target="blank">
                 <h3>David Castejón</h3>
-                <img id={`picture-david-${this.state.mode}`} src={this.state.mode === "light" ? davidLight : davidDark} />
+                <img id={`picture-david-${this.state.mode}`} src={this.state.mode === "light" ? davidLight : davidDark}  alt="img-david"/>
             </a>
         </div>
         <div className={`page-margin-${this.state.mode}`}>
             <a href="https://www.ironhack.com/en" target="blank">
-                <img id={`ironhack-logo-${this.state.mode}`} src={ironhack} />
+                <img id={`ironhack-logo-${this.state.mode}`} src={ironhack} alt="img-ironhack"/>
             </a>
         </div>
       </main>
