@@ -8,9 +8,9 @@ class AuthService {
     });
   }
 
-  signup(username, password, email) {
+  signup( username, password, email, image ) {
     const pr = this.auth
-      .post("/auth/signup", { username, password, email })
+      .post("/auth/signup", { username, password, email, image })
       .then((response) => response.data);
     // .then(({ data }) => data); // Shorter way of `.then((response) => response.data);`
 

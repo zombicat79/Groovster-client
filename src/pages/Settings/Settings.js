@@ -3,17 +3,27 @@ import { withAuth } from './../../context/auth-context';
 import { withMode } from './../../context/mode-context';
 import userService from './../../services/user-service';
 
+import axios from 'axios';
+
+import avatarLight from './../../images/default-avatar.png'
+import avatarDark from './../../images/default-avatar-dark.png'
+
 import './../../App.css'  
+import './Settings.css'
+
+import spotifyService from '../../services/spotify-service';
 
 class Settings extends Component {
     state = {
         username: "",
         email: "",
         image: "",
+        preferences: [],
         artistSearch: "",
         genreSearch: "",
-        profileIsOn: false,
-        preferencesIsOn: false,
+        mode: "",
+        unfoldedButtons: "folded",
+        switch: false
     }
 
     handleFormSubmit (event) {
@@ -75,6 +85,34 @@ class Settings extends Component {
         this.setState({ [name]: value })
     }
 
+    handleImageUpload = (event) => {
+        const file = event.target.files[0]; // we get the uploaded image
+
+        const uploadData = new FormData();
+        uploadData.append('image', file);
+
+        // we send the photo to the route that uploads it to Cloudinary
+        axios.post("http://localhost:5000/api/users/photo", uploadData, { withCredentials: true })
+        .then( (response) => {
+            const {imageUrl} = response.data;
+            this.setState({ image: imageUrl })
+        })
+        .catch( (err) => console.log(err));
+    }
+
+    handleUnfolding = () => {
+        if (this.state.unfoldedButtons === "folded") {
+            this.setState({ unfoldedButtons: "unfolded" })
+          }
+        else {
+            this.setState({ unfoldedButtons: "folded" })
+        }
+    }
+
+    logout = () => {
+        this.props.logout();
+    }
+
     deleteAccount = () => {
         const id = this.props.user._id;
 
@@ -84,78 +122,76 @@ class Settings extends Component {
         })
     }
 
-    toggleProfile = () => {
-        const buttonState = this.state.profileIsOn;
-        this.setState({ profileIsOn: !buttonState })
-    }
-
-    togglePreferences = () => {
-        const buttonState = this.state.preferencesIsOn;
-        this.setState({ preferencesIsOn: !buttonState })
-    }
-
     toggleMode = () => {
         this.props.toggleMode();
+        console.log(this.props)
+    }
+
+    handleMode = () => {
+        if (this.props.modeIsDark === true) {
+          this.setState({ mode: "dark" })
+        }
+        else {
+          this.setState({ mode: "light" })
+        }
+      }
+
+    componentDidMount = () => {
+        const id = this.props.user._id;
+        this.handleMode();
+
+        userService.getUser(id)
+        .then((data) => {
+            this.setState({ username: data.username, email: data.email, image: data.image, preferences: data.preferences})
+        })
     }
 
     render() {
-        
         return (
-            <main>
+            <main className={`main-${this.state.mode}`}>
+                <form id={`settings-form-${this.state.mode}`} className={`input-form-${this.state.mode}`} name="modifyProfile" encType="multipart/form-data" 
+                onSubmit={(event) => this.handleFormSubmit(event)}>
+                    <label>Username: </label>
+                    <input className={`settings-input-${this.state.mode}`} type="text" name="username" placeholder={this.props.user.username} 
+                    value={this.state.username} onChange={(event) => this.handleChange(event)} />
+
+                    <label>Email: </label>
+                    <input className={`settings-input-${this.state.mode}`} type="email" name="email" placeholder={this.props.user.email} 
+                    value={this.state.email} onChange={(event) => this.handleChange(event)} />
+
+                    <label>Picture: </label>
+                    { this.state.image.length > 0 &&
+                        <img id="selected-img" src={this.state.image === "/static/media/default-avatar.eb8ac4ec.png"
+                                ? this.state.mode === "light" 
+                                    ? avatarLight 
+                                    : avatarDark
+                                : this.state.image} />
+                    }
+                    <input 
+                        id={`image-input-${this.state.mode}`}
+                        type="file" 
+                        name="image" 
+                        onChange={this.handleImageUpload} 
+                    />
+
+                    <label>Password :</label>
+                    <input className={`settings-input-${this.state.mode}`} />
+
+                    <input id={`submit-changes-button-${this.state.mode}`} type="submit" value="Change" />
+                </form>
                 <div>
-                    <button onClick={this.togglePreferences}>
-                        {this.state.preferencesIsOn ? "Hide preferences" : "Modify preferences"}
-                    </button>
-
-                    {this.state.preferencesIsOn 
-                    ? (<div><form name="addArtist" onSubmit={(event) => this.handleFormSubmit(event)}>
-                        <input type="text" name="artistSearch" value={this.state.artistSearch} 
-                        onChange={(event) => this.handleChange(event)} />
-                        <input type="submit" value="Add" />
-                        <div></div>
-                    </form>
-
-                    <form name="addGenre" onSubmit={(event) => this.handleFormSubmit(event)}>
-                        <input type="text" name="genreSearch" value={this.state.genreSearch} 
-                        onChange={(event) => this.handleChange(event)} />
-                        <input type="submit" value="Add" />
-                        <div></div>
-                    </form></div>)
-                    : null}
+                    <button id={`switch-mode-button-${this.state.unfoldedButtons}-${this.state.mode}`} 
+                    onClick={this.toggleMode}>{this.state.mode === "light" ? "Switch to dark mode" : "Switch to light mode"}</button>
                 </div>
-                <div>
-                    <button onClick={this.toggleProfile}>
-                        {this.state.profileIsOn ? "Hide profile" : "Modify profile"}
-                    </button>
-                    
-                    {this.state.profileIsOn 
-                    ? (<div><form name="modifyProfile" enctype="multipart/form-data" onSubmit={(event) => this.handleFormSubmit(event)}>
-                        <label>Username: </label>
-                        <input type="text" name="username" placeholder={this.props.user.username} 
-                        value={this.state.username} onChange={(event) => this.handleChange(event)} />
-
-                        <label>Email: </label>
-                        <input type="email" name="email" placeholder={this.props.user.email} 
-                        value={this.state.email} onChange={(event) => this.handleChange(event)} />
-
-                        <label>Picture: </label>
-                        <input type="file" name="image" value={this.state.image} 
-                        onChange={(event) => this.handleChange(event)} />
-
-                        <label>Password :</label>
-                        <input />
-
-                        <input type="submit" value="Submit" />
-                    </form>
-
-                    <button onClick={this.deleteAccount}>Delete account</button></div>)
-                    : null}
+                <div className="button-container">
+                    <button id={`logout-button-${this.state.unfoldedButtons}-${this.state.mode}`} onClick={this.handleUnfolding}>Log out</button>
+                    <p id={`reassurance-${this.state.unfoldedButtons}-${this.state.mode}`}>You sure?</p>
+                    <input id={`reassurance-checkbox-${this.state.unfoldedButtons}-${this.state.mode}`} type="checkbox" onClick={this.logout} />
                 </div>
-                <div>
-                    <button onClick={this.toggleMode}>Switch to dark mode</button>
-                </div>
-                <div>
-                    <button onClick={this.props.logout}>Log out</button>
+                <div className="button-container">
+                    <button id={`delete-account-button-${this.state.unfoldedButtons}-${this.state.mode}`} onClick={this.handleUnfolding}>Delete account</button>
+                    <p id={`out-of-mind-${this.state.unfoldedButtons}-${this.state.mode}`}>Are you out of your mind?</p>
+                    <input id={`out-of-mind-checkbox-${this.state.unfoldedButtons}-${this.state.mode}`} type="checkbox" onClick={this.deleteAccount} />
                 </div>
             </main>
         )

@@ -11,7 +11,7 @@ import menu from './../../images/hamburger-icon.png'
 class Navbar extends Component {
   state = {
     menuIsOn: false,
-    showWelcome: "" 
+    showWelcome: "", 
   }
 
   toggleMenu = () => {
@@ -46,7 +46,12 @@ class Navbar extends Component {
             {this.state.menuIsOn ? (
               <div id="menu-unfold">
                 <p id="menu-close" onClick={this.toggleMenu}>X</p>
-                <p className="menu-item">About</p>
+                <Link className="menu-link" to="/about">
+                  <p className="menu-item">About</p>
+                </Link>
+                <Link className="menu-link" to={`/profile/${this.props.user._id}`}>
+                  <p className="menu-item">Profile</p>
+                </Link>
                 <Link className="menu-link" to="/settings">
                   <p className="menu-item">Settings</p>
                 </Link>

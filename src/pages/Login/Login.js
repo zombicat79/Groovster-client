@@ -6,7 +6,7 @@ class Login extends Component {
   state = { 
     username: "",
     password: "",
-    mode: "light"
+    mode: ""
    };
 
   handleFormSubmit = event => {
@@ -37,8 +37,8 @@ class Login extends Component {
     const { username, password } = this.state;
 
     return (
-      <div id="cover-background" className={this.state.mode}>
-       <form className="input-form" onSubmit={this.handleFormSubmit}>
+      <div id={`cover-background-${this.state.mode}`} className={this.state.mode}>
+       <form className={`input-form-${this.state.mode}`} onSubmit={this.handleFormSubmit}>
           
           <label>Username</label>
           <input type="text" name="username" value={username} onChange={this.handleChange}/>
@@ -46,7 +46,7 @@ class Login extends Component {
           <label>Password</label>
           <input type="password" name="password" value={password} onChange={this.handleChange} />
 
-          <input id="submit-button"type="submit" value="Go!" />
+          <input id={`submit-button-${this.state.mode}`} type="submit" value="Go!" />
 
         </form>
       </div>

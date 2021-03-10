@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
+import { withMode } from './context/mode-context'
 
 // Pages
 import Home from './pages/Home/Home';
@@ -9,6 +10,8 @@ import Login from './pages/Login/Login';
 import Settings from './pages/Settings/Settings';
 import Artist from './pages/Artist/Artist';
 import CreateEvent from './pages/CreateEvent/CreateEvent';
+import Profile from './pages/Profile/Profile'
+import About from './pages/About/About'
 
 // Components
 import Navbar from './components/Navbar/Navbar';
@@ -20,9 +23,11 @@ import albumPage from './components/albumPage/albumPage';
 import Chat from './components/Chat/Chat'
 import ProfilePage from './components/ProfilePage/ProfilePage';
 
-
-
 class App extends Component {
+  state = {
+    mode: ""
+  }
+  
   render() {
     // console.warn = () => {};
     // console.error = () => {};
@@ -37,7 +42,9 @@ class App extends Component {
           <AnonRoute exact path="/login" component={Login} />
 
           <PrivateRoute exact path="/main" component={Main} />
+          <PrivateRoute exact path="/about" component={About} />
           <PrivateRoute exact path="/settings" component={Settings} />
+          <PrivateRoute exact path="/profile/:id" component={Profile} />
           <PrivateRoute exact path="/artist/:id" component={Artist} />
           <PrivateRoute exact path="/artist/:id/create-event" component={CreateEvent} />
           <PrivateRoute exact path="/artist/:id/music" component={musicPage} />
@@ -51,4 +58,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withMode(App);
