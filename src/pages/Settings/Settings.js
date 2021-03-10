@@ -160,7 +160,7 @@ class Settings extends Component {
                     value={this.state.email} onChange={(event) => this.handleChange(event)} />
 
                     <label>Picture: </label>
-                    { this.state.image.length > 0 &&
+                    { this.state.image &&
                         <img id="selected-img" src={this.state.image === "/static/media/default-avatar.eb8ac4ec.png"
                                 ? this.state.mode === "light" 
                                     ? avatarLight 

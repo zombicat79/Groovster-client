@@ -54,7 +54,9 @@ class Profile extends Component {
 
         userService.getUser(id)
         .then( (data) => {
-            this.setState({ username: data.username, email: data.email, image: data.image, preferences: data.preferences })
+            console.log(data);
+            
+            this.setState({ username: data.data.username, email: data.data.email, image: data.data.image, preferences: data.data.preferences })
         })
     }
 
