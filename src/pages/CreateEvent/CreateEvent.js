@@ -3,11 +3,16 @@ import { withAuth } from '././../../context/auth-context';
 import eventService from './../../services/event-service';
 import userService from './../../services/user-service';
 
+import axios from 'axios';
+
+import defaultImage from './../../images/groovster-logo.png'
+
 class CreateEvent extends Component {
     state = {
         eventTitle: "",
         eventDescription: "",
         eventDate: "",
+        eventImage: defaultImage,
         participantSearch: "",
         searchResults: [],
         eventParticipants: []
@@ -31,12 +36,27 @@ class CreateEvent extends Component {
         event.preventDefault();
         const artistId = this.props.match.params.id;
         const userId = this.props.user._id
-        const {eventTitle, eventDate, eventDescription, eventParticipants} = this.state
+        const {eventTitle, eventDate, eventImage, eventDescription, eventParticipants} = this.state
 
-        eventService.createEvent(artistId, userId, {title: eventTitle, description: eventDescription, date: eventDate, participants: eventParticipants})
+        eventService.createEvent(artistId, userId, {title: eventTitle, description: eventDescription, date: eventDate, picture: eventImage, participants: eventParticipants})
         .then( (data) => {
-            this.setState({eventTitle: "", eventDate: "", eventDescription: "", eventParticipants})
+            this.setState({eventTitle: "", eventDate: "", eventImage: this.state.eventImage, eventDescription: "", eventParticipants})
         });
+    }
+
+    handleImageUpload = (event) => {
+        const file = event.target.files[0]; // we get the uploaded image
+
+        const uploadData = new FormData();
+        uploadData.append('image', file);
+
+        // we send the photo to the route that uploads it to Cloudinary
+        axios.post(`${process.env.REACT_APP_API_URL}/api/users/photo`, uploadData, { withCredentials: true })
+        .then( (response) => {
+            const {imageUrl} = response.data;
+            this.setState({ eventImage: imageUrl })
+        })
+        .catch( (err) => console.log(err));
     }
 
     addEventParticipant = (event) => {
@@ -57,15 +77,20 @@ class CreateEvent extends Component {
                     </div>
 
                     <div>
-                    <label>Description:</label>
-                    <input type="textarea" name="eventDescription"
-                    value={this.state.eventDescription} onChange={(event) => this.handleChange(event)} />
+                        <label>Description:</label>
+                        <input type="textarea" name="eventDescription"
+                        value={this.state.eventDescription} onChange={(event) => this.handleChange(event)} />
                     </div>
 
                     <div>
-                    <label>Date</label>
-                    <input type="text" name="eventDate" placeholder="dd/mm/yyyy"
-                    value={this.state.eventDate} onChange={(event) => this.handleChange(event)} />
+                        <label>Date</label>
+                        <input type="text" name="eventDate" placeholder="dd/mm/yyyy"
+                        value={this.state.eventDate} onChange={(event) => this.handleChange(event)} />
+                    </div>
+                    <div>
+                        <label>Picture</label>
+                        <img src={this.state.eventImage} />
+                        <input type="file" name="image" onChange={this.handleImageUpload} />
                     </div>
 
                     <div>
