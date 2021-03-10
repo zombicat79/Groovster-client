@@ -31,7 +31,7 @@ class Settings extends Component {
         const id = this.props.user._id;
         const { username, email, image, password} = this.state;
         
-        userService.modifyUser(id, {username, email, image, password})
+        userService.modifyUserSettings(id, {username, email, image, password})
         .then( (data) => {
         this.setState({ username: this.state.username, email: this.state.email, image: this.state.image, password: this.state.password });
         this.props.history.push(`/profile/${this.props.user_id}`);

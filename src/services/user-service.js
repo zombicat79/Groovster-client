@@ -35,12 +35,21 @@ class UserService {
     return pr;
   };
 
+// Change Settings
+  modifyUserSettings = (id, changes) => {
+    console.log(changes)
+    const pr = this.api
+    .put(`/settings/${id}`, changes)
+    .then( (response) => response.data)
+
+    return pr;
+  };
+
   modifyUser = (id, changes) => {
     console.log(changes)
     const pr = this.api
     .put(`/${id}`, changes)
     .then( (response) => response.data)
-
     return pr;
   };
 

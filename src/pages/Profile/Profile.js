@@ -56,7 +56,7 @@ class Profile extends Component {
         .then( (data) => {
             console.log(data);
             
-            this.setState({ username: data.data.username, email: data.data.email, image: data.data.image, preferences: data.data.preferences })
+            this.setState({ username: data.username, email: data.email, image: data.image, preferences: data.preferences })
         })
     }
 
