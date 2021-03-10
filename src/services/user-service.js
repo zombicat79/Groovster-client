@@ -21,11 +21,10 @@ class UserService {
   getUser = (id) => {
     const pr = this.api
     .get(`/${id}`)
-    .then( (response) => response)
+    .then( (response) => response.data)
 
     return pr;
   };
-
 
   modifyUserChat = (id, changes) => {
     console.log(changes);
@@ -36,15 +35,8 @@ class UserService {
     return pr;
   };
 
-
   modifyUser = (id, changes) => {
-    const pr = this.api
-    .put(`/${id}`, changes)
-    .then( (response) => response.data)
-    return pr;
-  };
-
-  modifyUser = (id, changes) => {
+    console.log(changes)
     const pr = this.api
     .put(`/${id}`, changes)
     .then( (response) => response.data)

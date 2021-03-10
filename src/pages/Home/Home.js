@@ -30,7 +30,7 @@ class Home extends React.Component {
         </div>
         {this.props.isLoggedIn 
         ? (<Link to="/main">
-          <input id={`browse-button-${this.state.mode}`} value="Browse!" />
+          <button id={`browse-button-${this.state.mode}`}>Browse!</button>
         </Link>)
         : null}
       </main>
