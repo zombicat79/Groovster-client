@@ -40,7 +40,7 @@ class Navbar extends Component {
         {this.props.isLoggedIn ? (
           <div id="navbar-in">
             <Link to={'/'} id='home-btn'>
-              <img id="logo" src={logo} />
+              <img id="logo" src={logo} alt="logo"/>
             </Link>
             <p className="welcome" id={this.state.showWelcome}>Let's rock it, {this.props.user && this.props.user.username}!</p>
             {this.state.menuIsOn ? (
@@ -51,7 +51,7 @@ class Navbar extends Component {
                   <p className="menu-item">Settings</p>
                 </Link>
                 <p className="menu-item" onClick={this.logout}>Logout</p>
-              </div>) : (<img id="menu-icon" src={menu} onClick={this.toggleMenu} />)}
+              </div>) : (<img id="menu-icon" src={menu} onClick={this.toggleMenu} alt="menu-icon"/>)}
           </div>
           ) : (
           <div id="navbar-out">

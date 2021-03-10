@@ -32,7 +32,7 @@ class musicPage extends Component {
     const { id } = this.props.match.params;    
     spotifyService.getAlbum(id)
     .then((data) => {
-        this.setState({albums: data.items.slice(0,5)})
+        this.setState({albums: data.items})
         console.log(this.state.albums);
     });
   };
@@ -54,9 +54,9 @@ class musicPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="music-page-container">
         <h1>{this.state.name}</h1>
-        <h2>Albums</h2>
+        <h2>{this.state.albums.length} Albums</h2>
         <div className="album-box">
             {this.state.albums.map((el) => {
                 return (
@@ -69,7 +69,7 @@ class musicPage extends Component {
                 )
             })}
         </div>
-        <h2>Artists' top tracks</h2>
+        <h2>{this.state.name}'s top tracks</h2>
             {this.state.songs.map((el)=> {
                 
                 return (

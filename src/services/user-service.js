@@ -1,8 +1,5 @@
 import axios from "axios";
 
-// THIS IS AN EXAMPLE THAT YOU CAN USE
-// TO CREATE A SERVICE FOR YOUR AXIOS CALLS
-
 class UserService {
   constructor() {
     // this.api  is a reusable axios request base containing the base url (baseURL)
@@ -24,8 +21,26 @@ class UserService {
   getUser = (id) => {
     const pr = this.api
     .get(`/${id}`)
-    .then( (response) => response.data)
+    .then( (response) => response)
 
+    return pr;
+  };
+
+
+  modifyUserChat = (id, changes) => {
+    console.log(changes);
+    
+    const pr = this.api
+    .put(`/${id}/${changes}`, changes)
+    .then( (response) => response.data)
+    return pr;
+  };
+
+
+  modifyUser = (id, changes) => {
+    const pr = this.api
+    .put(`/${id}`, changes)
+    .then( (response) => response.data)
     return pr;
   };
 
@@ -37,7 +52,6 @@ class UserService {
     return pr;
   };
 
-
   deleteUser = (id) => {
     const pr = this.api
     .delete(`/${id}`)
@@ -45,6 +59,8 @@ class UserService {
 
     return pr;
   };
+
+
 }
 
 // Create instance (object) containing all axios calls as methods

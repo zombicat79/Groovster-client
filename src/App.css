@@ -126,34 +126,116 @@ html, body {
 .album-box {
   display: flex;
   flex-direction: row;
+  max-width: 95vw;
+  overflow-x: scroll;  
 }
 
 .chat-container {
-  border: 1px solid darkblue;
   max-width: 400px;
+  padding: 0px 20px 20px 20px;
 }
 
 #messages {
-  border: 1px solid green;
-  max-width: 300px;
-  max-height: 500px;
+  border: 15px solid darkcyan;
+  border-radius: 25px;
+  height: 400px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
 }
 
-.message-display {
-  border: 1px solid grey;
+.sender {
+  border: 10px solid rgb(58, 143, 255);
+  border-radius: 25px 25px 5px 25px;
   margin: 5px;
+  width: 70%;
+  padding: 10px; 
+  float: right;
+  margin-left: 45px;
 }
 
-.chat-page {
+.chat-page, .main-page-container, .artist-page-container, .music-page-container, .album-page-container {
   margin: 100px 15px 0px 15px;
 }
 
+.chat-page > h3 {
+  text-align: center; 
+}
+
+.receiver {
+  border: 10px solid rgb(58, 143, 255);
+  border-radius: 5px 25px 25px 25px;
+  margin: 5px;
+  width: 70%;
+  padding: 10px; 
+}
+
+.send-chat {
+  background-color: white;
+  border: 5px solid rgb(58, 143, 255);
+  border-radius: 20%;
+  padding: 5px;
+  margin-left: 5px;
+}
+
+.input-group
+{
+  display: flex;
+  justify-content: space-between;
+}
+.input-group > input {
+  border: 7px solid darkcyan;
+  border-radius: 25px;
+  width: 65vw;
+  height: 30px;
+}
+
+.chat-page > h1 {
+  text-align: center;
+}
+
+.back-btn-chat {
+  position: absolute; 
+  right: 37px;
+  top: 140px;
+}
+
+.time-chat {
+  font-size: .7rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.name-link {
+  text-decoration: none;
+}
+
+.dummy {
+  margin-top: 110px;
+}
+
+.col-md-4 > h4 {
+  text-align: center;
+}
+
+.profile-container{
+  margin: 100px 20px 20px 20px;
+}
 
 
 /* SETTINGS PAGES */
 
 main {
   margin-top: 30vw;
+}
+
+/* Artist Page  */
+.artist-page-container {
+  text-align: center;
 }
 
 @media screen and (min-width: 540px) {

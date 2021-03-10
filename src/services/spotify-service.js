@@ -8,34 +8,69 @@ class SpotifyService {
     });
   }
 
+  searchArtist = (search) => {
+    const pr = this.api
+      .post(`spotify/main/`, { search })
+      .then((response) => response);
+    return pr;
+  };
+
   getArtist = (id) => {
     const pr = this.api
-    .get(`/spotify/artist/${id}`)
-    .then( (response) => response.data.body)
+      .get(`/spotify/artist/${id}`)
+      .then((response) => response.data.body);
 
+    return pr;
+  };
+
+  getArtists = (userPref) => {
+    const pr = this.api
+      .post("spotify/main/preferences", { userPref })
+      .then((response) => response);
+    return pr;
+  };
+
+  getRandomArtists = () => {
+    const pr = this.api
+      .get(`/spotify/main/no-preferences`)
+      .then((response) => response);
+    return pr;
+  };
+
+  getRelatedArtists = (userPref) => {
+    const pr = this.api
+      .post("spotify/main/one-preference", { userPref })
+      .then((response) => response);
     return pr;
   };
 
   getAlbum = (id) => {
     const pr = this.api
-    .get(`/spotify/artist/album/${id}`)
-    .then( (response) => response.data.body)
+      .get(`/spotify/artist/album/${id}`)
+      .then((response) => response.data.body);
     return pr;
-  }
+  };
 
   getTopTracks = (id) => {
     const pr = this.api
-    .get(`/spotify/artist/top-tracks/${id}`)
-    .then( (response) => response.data.body)
+      .get(`/spotify/artist/top-tracks/${id}`)
+      .then((response) => response.data.body);
     return pr;
-  }
+  };
 
   getAlbumTracks = (id) => {
     const pr = this.api
-    .get(`/spotify/artist/album/track/${id}`)
-    .then( (response) => response.data.body.items)
+      .get(`/spotify/artist/album/track/${id}`)
+      .then((response) => response.data.body.items);
     return pr;
-  }
+  };
+
+  getOneAlbum = (id) => {
+    const pr = this.api
+      .get(`spotify/artist/one-album/${id}`)
+      .then((response) => response.data.body);
+    return pr;
+  };
 }
 
 // Create instance (object) containing all axios calls as methods

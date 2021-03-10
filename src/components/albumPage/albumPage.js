@@ -5,27 +5,42 @@ require("dotenv").config();
 
 class albumPage extends Component {
   state = {
-      songs: []
+      songs: [], 
+      album: [],
   };
 
   retrieveTracksFromAlbum = () => {
     const { id } = this.props.match.params;
     spotifyService.getAlbumTracks(id)
       .then((data) => {
-          console.log(data)
           this.setState({songs: data})
       })
       .catch((err) => console.log(err));
   };
 
+  retrieveAlbumInfo = () => {
+    const { id } = this.props.match.params; 
+    spotifyService.getOneAlbum(id)
+    .then((data) => {
+        console.log(data);
+        
+        this.setState({album: data})
+    })
+    .catch((err) => console.log(err));
+  }
+
   componentDidMount(){
     this.retrieveTracksFromAlbum();
+    this.retrieveAlbumInfo(); 
   }
 
   render() {
     return (
-        <div>
-            <h1>Track List</h1>
+        <div className="album-page-container">
+            <h1>Track List of {this.state.album.name}</h1>
+            {this.state.album.images &&  <img src={this.state.album.images[0].url} alt="cover" className="album-image"/> }
+            <p>Released on: {this.state.album.release_date}</p>
+            <p>Label: {this.state.album.label}</p>
             <ul>
                 {this.state.songs.map((el) => {
                     return (

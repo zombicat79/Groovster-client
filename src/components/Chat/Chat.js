@@ -24,17 +24,14 @@ import ChatRoom from './ChatRoom';
         this.retrieveArtist();
     }
 
-
-
-
     render() {
         return (
             <div className="chat-page">
-                <h1>Chat with other fans of {this.state.name}</h1>
-                <ChatRoom username={this.state.name}/>
-                <button className="back-btn" onClick={this.props.history.goBack}>
-                   Go Back
+                <h3>Welcome to {this.state.name}'s room</h3>
+                <button className="back-btn-chat" onClick={this.props.history.goBack}>
+                   ⇦
                 </button>
+                <ChatRoom username={this.state.name}/>
             </div>
         )
         

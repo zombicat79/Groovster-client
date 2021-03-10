@@ -18,11 +18,14 @@ import Main from './components/Main/Main'
 import musicPage from './components/musicPage/musicPage';
 import albumPage from './components/albumPage/albumPage';
 import Chat from './components/Chat/Chat'
+import ProfilePage from './components/ProfilePage/ProfilePage';
 
 
 
 class App extends Component {
   render() {
+    // console.warn = () => {};
+    // console.error = () => {};
     return (
       <div className="container">
         <Navbar />
@@ -40,6 +43,8 @@ class App extends Component {
           <PrivateRoute exact path="/artist/:id/music" component={musicPage} />
           <PrivateRoute exact path="/artist/album/track/:id" component={albumPage} />
           <PrivateRoute exact path="/artist/chat/:id" component={Chat} />
+          <PrivateRoute exact path="/profile/:id" component={ProfilePage} />
+
         </Switch>
       </div>
     );

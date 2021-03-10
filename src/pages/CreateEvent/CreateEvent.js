@@ -31,7 +31,7 @@ class CreateEvent extends Component {
         event.preventDefault();
         const artistId = this.props.match.params.id;
         const userId = this.props.user._id
-        const {eventTitle, eventDate, eventDescription, participantSearch, eventParticipants} = this.state
+        const {eventTitle, eventDate, eventDescription, eventParticipants} = this.state
 
         eventService.createEvent(artistId, userId, {title: eventTitle, description: eventDescription, date: eventDate, participants: eventParticipants})
         .then( (data) => {
