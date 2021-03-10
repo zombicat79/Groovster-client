@@ -3,14 +3,14 @@ import axios from "axios";
 class SpotifyService {
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:5000/api",
+      baseURL: `${process.env.REACT_APP_API_URL}/api`,
       withCredentials: true,
     });
   }
 
   searchArtist = (search) => {
     const pr = this.api
-      .post(`spotify/main/`, { search })
+      .post(`/spotify/main/`, { search })
       .then((response) => response);
     return pr;
   };
@@ -25,7 +25,7 @@ class SpotifyService {
 
   getArtists = (userPref) => {
     const pr = this.api
-      .post("spotify/main/preferences", { userPref })
+      .post("/spotify/main/preferences", { userPref })
       .then((response) => response);
     return pr;
   };
@@ -39,7 +39,7 @@ class SpotifyService {
 
   getRelatedArtists = (userPref) => {
     const pr = this.api
-      .post("spotify/main/one-preference", { userPref })
+      .post("/spotify/main/one-preference", { userPref })
       .then((response) => response);
     return pr;
   };
@@ -67,7 +67,7 @@ class SpotifyService {
 
   getOneAlbum = (id) => {
     const pr = this.api
-      .get(`spotify/artist/one-album/${id}`)
+      .get(`/spotify/artist/one-album/${id}`)
       .then((response) => response.data.body);
     return pr;
   };

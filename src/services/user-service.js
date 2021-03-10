@@ -5,7 +5,7 @@ class UserService {
     // this.api  is a reusable axios request base containing the base url (baseURL)
     // of the API and the Headers options ( `withCredentials: true` )
     this.api = axios.create({
-      baseURL: "http://localhost:5000/api/users",
+      baseURL: `${process.env.REACT_APP_API_URL}/api/users`,
       withCredentials: true,
     });
   }

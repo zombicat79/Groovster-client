@@ -19,7 +19,7 @@ const ChatRoom = (props) => {
 
   // run when the component mounts
   useEffect(() => {
-    socket = io("http://localhost:5000", {
+    socket = io(process.env.REACT_APP_API_URL, {
       transports: ["websocket", "polling"], 
       forceNew: true,
     });

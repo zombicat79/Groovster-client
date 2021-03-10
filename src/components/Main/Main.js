@@ -4,6 +4,9 @@ import { withAuth } from "./../../context/auth-context";
 import userService from "./../../services/user-service";
 import spotifyService from "../../services/spotify-service";
 import authService from "../../services/auth-service";
+import favorite from './../../images/favorite-yes.png'
+import favoriteNo from './../../images/notFavorite.png'
+
 require("dotenv").config();
 
 class Main extends Component {
@@ -51,6 +54,7 @@ class Main extends Component {
 
   getRandom = () => {
     spotifyService.getRandomArtists().then((list) => {
+      
       this.setState({ randomArtists: list.data.artists });
     });
   };
@@ -177,7 +181,7 @@ class Main extends Component {
                   <h2>{data.name}</h2>
                 </Link>
                 <button onClick={() => this.addToFav(`${data.id}`)}>
-                  Add to Favorites
+                  <img src={favoriteNo} alt="favorite-icon" className="favorite-icon"/>
                 </button>
               </div>
             );
@@ -199,7 +203,7 @@ class Main extends Component {
                   <h2>{data.name}</h2>
                 </Link>
                 <button onClick={() => this.removeFromFav(`${data.id}`)}>
-                  Remove from Favorites
+                   <img src={favorite} alt="favorite-icon" className="favorite-icon"/>
                 </button>
               </div>
             );
@@ -221,7 +225,7 @@ class Main extends Component {
                   <h2>{el.name}</h2>
                 </Link>
                 <button onClick={() => this.removeFromFav(`${el.id}`)}>
-                  Remove from favorites
+                  <img src={favorite} alt="favorite-icon" className="favorite-icon"/>
                 </button>
               </div>
             );
@@ -241,7 +245,7 @@ class Main extends Component {
                   <h2>{el.name}</h2>
                 </Link>
                 <button onClick={() => this.addToFav(`${el.id}`)}>
-                  Add to favorites
+                <img src={favoriteNo} alt="favorite-icon" className="favorite-icon"/>
                 </button>
               </div>
             );
@@ -263,7 +267,7 @@ class Main extends Component {
                   <h2>{el.name}</h2>
                 </Link>
                 <button onClick={() => this.addToFav(`${el.id}`)}>
-                  Add to favorites
+                    <img src={favoriteNo} alt="favorite-icon" className="favorite-icon"/>
                 </button>
               </div>
             );

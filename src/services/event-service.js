@@ -3,7 +3,7 @@ import axios from "axios";
 class EventService {
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:5000/api/events",
+      baseURL: `${process.env.REACT_APP_API_URL}/api/events`,
       withCredentials: true,
     });
   }

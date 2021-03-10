@@ -396,6 +396,25 @@ main {
   text-align: center;
 }
 
+.create-form-container {
+  margin: 30vh 5vh;
+}
+
+.create-form-container > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-form-container > form > div {
+  margin: 10px;
+}
+
+.favorite-icon {
+  width: 50px;
+  height: 50px;
+}
+
 @media screen and (min-width: 540px) {
   
 /* HOME, LOGIN, SIGNUP PAGES */

@@ -48,23 +48,31 @@ class CreateEvent extends Component {
     
     render() {
         return (
-            <div>
+            <div className="create-form-container">
                 <form>
-                    <label>Title:</label>
-                    <input type="text" name="eventTitle" 
-                    value={this.state.eventTitle} onChange={(event) => this.handleChange(event)} />
+                    <div>
+                        <label>Title:</label>
+                        <input type="text" name="eventTitle" 
+                        value={this.state.eventTitle} onChange={(event) => this.handleChange(event)} />
+                    </div>
 
+                    <div>
                     <label>Description:</label>
                     <input type="textarea" name="eventDescription"
                     value={this.state.eventDescription} onChange={(event) => this.handleChange(event)} />
+                    </div>
 
+                    <div>
                     <label>Date</label>
                     <input type="text" name="eventDate" placeholder="dd/mm/yyyy"
                     value={this.state.eventDate} onChange={(event) => this.handleChange(event)} />
+                    </div>
 
+                    <div>
                     <h3>Search for participants:</h3>
                     <input type="text" name="participantSearch" 
                     value={this.state.participantSearch} onChange={(event) => this.handleChange(event)} />    
+                    </div>
 
                     <div>
                         {this.state.searchResults.map((oneResult, i) => {

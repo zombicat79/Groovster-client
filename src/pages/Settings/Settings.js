@@ -92,7 +92,7 @@ class Settings extends Component {
         uploadData.append('image', file);
 
         // we send the photo to the route that uploads it to Cloudinary
-        axios.post("http://localhost:5000/api/users/photo", uploadData, { withCredentials: true })
+        axios.post(`${process.env.REACT_APP_API_URL}/api/users/photo`, uploadData, { withCredentials: true })
         .then( (response) => {
             const {imageUrl} = response.data;
             this.setState({ image: imageUrl })
