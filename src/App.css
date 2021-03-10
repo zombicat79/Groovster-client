@@ -262,6 +262,8 @@ html, body {
   padding: 3vw;
 }
 
+/* -- */
+
 .artists-card > link > img {
   width:100px; 
   height: auto; 
@@ -313,7 +315,7 @@ html, body {
   margin-left: 45px;
 }
 
-.chat-page, .main-page-container, .artist-page-container, .music-page-container, .album-page-container {
+.chat-page, .main-page-container, .music-page-container, .album-page-container {
   margin: 100px 15px 0px 15px;
 }
 
@@ -387,7 +389,7 @@ a {
 
 /* SETTINGS PAGES */
 
-main, .event-page {
+.event-page {
   margin-top: 30vw;
 }
 

@@ -1,9 +1,16 @@
 import React, { Component } from "react";
-import { withAuth } from "././../../context/auth-context";
+import { withAuth } from "./../../context/auth-context";
+import { withMode } from "./../../context/mode-context"
 import { Link } from "react-router-dom";
 import spotifyService from "./../../services/spotify-service";
 import eventService from "./../../services/event-service";
 import userService from "./../../services/user-service";
+
+import './../../App.css';
+import './Artist.css';
+
+import backLight from './../../images/go-back-light.png';
+import backDark from './../../images/go-back-dark.png';
 
 class Artist extends Component {
   state = {
@@ -14,6 +21,7 @@ class Artist extends Component {
     genres: [],
     events: [],
     seeEventsIsOn: false,
+    mode: ""
   };
 
   retrieveArtist = () => {
@@ -38,6 +46,7 @@ class Artist extends Component {
   };
 
   componentDidMount() {
+    this.handleMode();
     this.retrieveEvents();
     this.retrieveArtist();
   }
@@ -55,13 +64,23 @@ class Artist extends Component {
       .catch((err) => console.log(err));
   };
 
+  handleMode = () => {
+    if (this.props.modeIsDark === true) {
+      this.setState({ mode: "dark" })
+    }
+    else {
+      this.setState({ mode: "light" })
+    }
+  } 
+
   render() {
     const { id } = this.props.match.params;
 
     return (
-      <div className="artist-page-container">
-        <h1>{this.state.name}</h1>
-        <h2>
+      <div id={`artist-main-${this.state.mode}`} className={`main-light page-margin-${this.state.mode}`}>
+        <img id={`goback-${this.state.mode}`} src={backLight} onClick={this.props.history.goBack} />
+        <h1 id={`band-name-${this.state.mode}`}>{this.state.name}</h1>
+        <h2 id={`genre-display-${this.state.mode}`}>
           {this.state.genres.map((el, index) => {
             return (
               <span key={index}>
@@ -74,6 +93,7 @@ class Artist extends Component {
 
         <div>
           <img
+            id={`band-picture-${this.state.mode}`}
             src={this.state.picture}
             alt={`${this.state.name} cover`}
             height="300"
@@ -82,44 +102,41 @@ class Artist extends Component {
         </div>
 
         <div>
-          <p>Popularity: {this.state.popularity}</p>
-          <p>Followers: {this.state.followers}</p>
+          <p className={`regular-text-${this.state.mode}`}>Popularity: {this.state.popularity}</p>
+          <p className={`regular-text-${this.state.mode}`}>Followers: {this.state.followers}</p>
         </div>
 
         <Link to={`/artist/chat/${id}/`}>
           <div>
-            <button onClick={this.updateChatModel}>ENTER THE CHAT ROOM</button>
+            <button className={`artist-button-${this.state.mode}`} onClick={this.updateChatModel}>ENTER CHAT</button>
           </div>
         </Link>
 
         <Link to={`/artist/${id}/music`}>
           <div>
-            <button>See albums & tracks</button>
+            <button className={`artist-button-${this.state.mode}`}>Albums & tracks</button>
           </div>
         </Link>
 
         <div>
-          <button onClick={this.toggleSeeEvents}>
-            {this.state.seeEventsIsOn ? "Hide" : "See related events"}
+          <button className={`artist-button-${this.state.mode}`} onClick={this.toggleSeeEvents}>
+            {this.state.seeEventsIsOn ? "Hide" : "Related events"}
           </button>
           {this.state.seeEventsIsOn ? (
-            <div>
+            <div id={`band-events-${this.state.mode}`}>
               {this.state.events.map((oneEvent, i) => {
-                return <Link to={`/artist/event/${oneEvent._id}`} key={oneEvent._id}>{oneEvent.title}</Link>;
+                return <Link className={`regular-text-${this.state.mode}`} to={`/artist/event/${oneEvent._id}`} key={oneEvent._id}>{oneEvent.title}</Link>;
               })}
             </div>
           ) : null}
         </div>
 
         <Link to={`/artist/${id}/create-event`}>
-          <button>Add new event</button>
+          <button className={`artist-button-${this.state.mode}`}>Add event</button>
         </Link>
-        <button className="back-btn" onClick={this.props.history.goBack}>
-          Go Back
-        </button>
       </div>
     );
   }
 }
 
-export default withAuth(Artist);
+export default withAuth(withMode(Artist));

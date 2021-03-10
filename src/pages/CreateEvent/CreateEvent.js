@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { withAuth } from '././../../context/auth-context';
+import { withAuth } from './../../context/auth-context';
+import { withMode } from './../../context/mode-context'
 import eventService from './../../services/event-service';
 import userService from './../../services/user-service';
 
 import axios from 'axios';
 
+import './../../App.css'
+import './CreateEvent.css'
 import defaultImage from './../../images/groovster-logo.png'
 
 class CreateEvent extends Component {
@@ -17,6 +20,7 @@ class CreateEvent extends Component {
         searchResults: [],
         eventParticipants: [],
         eventLocation: "",
+        mode: "",
     }
 
     handleChange = (event) => {
@@ -68,37 +72,50 @@ class CreateEvent extends Component {
         const updatedEventParticipants = [...this.state.eventParticipants, value]
         this.setState({eventParticipants: updatedEventParticipants})
     }
+
+    handleMode = () => {
+        if (this.props.modeIsDark === true) {
+          this.setState({ mode: "dark" })
+        }
+        else {
+          this.setState({ mode: "light" })
+        }
+    }
+
+    componentDidMount = () => {
+        this.handleMode();
+    }
     
     render() {
         return (
-            <div className="create-form-container">
-                <form>
+            <main className={`main-${this.state.mode}`}>
+                <form id={`event-input-form-${this.state.mode}`}>
                     <div>
                         <label>Title:</label>
-                        <input type="text" name="eventTitle" 
+                        <input className={`settings-input-${this.state.mode}`} type="text" name="eventTitle" 
                         value={this.state.eventTitle} onChange={(event) => this.handleChange(event)} />
                     </div>
 
                     <div>
                         <label>Description:</label>
-                        <input type="textarea" name="eventDescription"
+                        <input className={`settings-input-${this.state.mode}`} type="textarea" name="eventDescription"
                         value={this.state.eventDescription} onChange={(event) => this.handleChange(event)} />
                     </div>
 
                     <div>
-                        <label>Date</label>
-                        <input type="text" name="eventDate" placeholder="dd/mm/yyyy"
+                        <label>Date:</label>
+                        <input id={`event-date-label-${this.state.mode}`} className={`settings-input-${this.state.mode}`} type="text" name="eventDate" placeholder="dd/mm/yyyy"
                         value={this.state.eventDate} onChange={(event) => this.handleChange(event)} />
                     </div>
-                    <div>
-                        <label>Picture</label>
+                    <div id={`event-picture-${this.state.mode}`}>
+                        <label>Picture:</label>
                         <img src={this.state.eventImage} />
-                        <input type="file" name="image" onChange={this.handleImageUpload} />
+                        <input id={`picture-submit-${this.state.mode}`} type="file" name="image" onChange={this.handleImageUpload} />
                     </div>
 
                     <div>
-                    <label>Location</label>
-                    <input type="text" name="eventLocation" 
+                    <label>Location:</label>
+                    <input className={`settings-input-${this.state.mode}`} type="text" name="eventLocation" 
                     value={this.state.eventLocation} onChange={(event) => this.handleChange(event)} />
                     </div>
 
@@ -113,11 +130,11 @@ class CreateEvent extends Component {
                         })}
                     </div>
 
-                    <button onClick={(event) => this.handleFormSubmit(event)} type="submit">Create</button>
+                    <button id={`event-submit-button-${this.state.mode}`} onClick={(event) => this.handleFormSubmit(event)} type="submit">Create</button>
                 </form>
-            </div>
+            </main>
         )
     }
 }
 
-export default withAuth(CreateEvent);
+export default withAuth(withMode(CreateEvent))

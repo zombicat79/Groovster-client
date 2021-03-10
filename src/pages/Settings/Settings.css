@@ -44,12 +44,20 @@
     border: 2px solid turquoise;
 }
 
-#selected-img {
+#selected-img-light {
     position: relative;
-    left: 12vw;
-    height: 25vw;
-    width: 25vw;
+    left: 17vw;
     margin-bottom: 2vw;
+    max-width: 15vw;
+    max-height: 15vw;
+}
+
+#selected-img-dark {
+    position: relative;
+    left: 19vw;
+    margin-bottom: 2vw;
+    max-width: 15vw;
+    max-height: 15vw;
 }
 
 #image-input-light {

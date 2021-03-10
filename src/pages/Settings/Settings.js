@@ -117,7 +117,7 @@ class Settings extends Component {
 
                     <label>Picture: </label>
                     { this.state.image &&
-                        <img id="selected-img" src={this.state.image === "/static/media/default-avatar.eb8ac4ec.png" 
+                        <img id={`selected-img-${this.state.mode}`} src={this.state.image === "/static/media/default-avatar.eb8ac4ec.png" 
                                 ? this.state.mode === "light" 
                                     ? avatarLight 
                                     : avatarDark

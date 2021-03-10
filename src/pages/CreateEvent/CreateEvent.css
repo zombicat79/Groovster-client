@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+#event-input-form-light {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    position: relative;
+    left: 22vw;
+}
+
+#event-input-form-dark {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    position: relative;
+}
+
+#event-input-form-light label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 7.5vw;
+}
+
+#event-input-form-dark label {
+    color: yellow;
+    font-family: 'Roboto', sans-serif;
+    font-size: 7.5vw;
+}
+
+#event-input-form-light input {
+    margin-bottom: 2vw;
+    background-color: rgb(173, 255, 47, 0.7);
+    height: 10vw;
+    border-radius: 20vw;
+    border: 2px solid green;
+    font-family: 'Roboto', sans-serif;
+    font-size: 5vw;
+    text-align: center;
+}
+
+#event-input-form-dark input {
+    margin-bottom: 2vw;
+    background-color: rgb(64, 224, 208, 0.5);
+    height: 10vw;
+    border-radius: 20vw;
+    border: 2px solid turquoise;
+    font-family: 'Roboto', sans-serif;
+    font-size: 5vw;
+    text-align: center;
+}
+
+#event-submit-button-light {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 5vw;
+    height: 20vw;
+    width: 20vw;
+    margin-top: 20vw;
+    border-radius: 50vw;
+    background-color: green;
+    border: 2px solid greenyellow;
+    position: relative;
+    left: 18vw;
+  }
+
+  #event-submit-button-dark {
+    color: yellow;
+    font-family: 'Roboto', sans-serif;
+    font-size: 5vw;
+    height: 20vw;
+    width: 20vw;
+    margin-top: 20vw;
+    border-radius: 50vw;
+    background-color: blue;
+    border: 2px solid turquoise;
+    position: relative;
+    left: 16vw;
+  }
+
+  #event-picture-light label {
+    position: relative;
+    top: -8vw;
+  }
+
+  #event-picture-dark label {
+    position: relative;
+    top: 0vw;
+  }
+
+  #event-picture-light img {
+    position: relative;
+    top: 10vw;
+    right: 5vw;
+    max-height: 15vw;
+    max-width: 15vw;
+  }
+
+  #event-picture-dark img {
+    position: relative;
+    top: 10vw;
+    left: 18vw;
+    max-height: 15vw;
+    max-width: 15vw;
+  }
+
+  #picture-submit-light {
+      width: 95%;
+      padding-top: 2vw;
+      padding-left: 4vw;
+      margin-top: 10vw;
+  }
+
+  #picture-submit-dark {
+    width: 47vw;
+    padding-top: 2vw;
+    padding-left: 4vw;
+    margin-top: 10vw;
+}
+
+#event-date-label-dark::placeholder {
+    color: black;
+}
+
+  

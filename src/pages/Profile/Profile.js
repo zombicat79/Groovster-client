@@ -17,6 +17,7 @@ class Profile extends Component {
         email: "",
         image: "",
         preferences: [],
+        events: [],
         mode: ""
     }
 
@@ -35,17 +36,18 @@ class Profile extends Component {
 
         userService.getUser(id)
         .then((data) => {
-            const { username, email, image, preferences } = data
+            const { username, email, image, preferences, events } = data
+            console.log(events)
             
             if (preferences.length > 0) {
                 spotifyService.getArtists(preferences)
                 .then( (prefs) => {
                     console.log(prefs.data.body.artists);
-                    this.setState({ username, email, image, preferences: prefs.data.body.artists})
+                    this.setState({ username, email, image, events, preferences: prefs.data.body.artists})
                 })
             }
             else {
-                this.setState({ username, email, image, preferences})
+                this.setState({ username, email, image, preferences, events})
             }
         })
     }
@@ -68,6 +70,15 @@ class Profile extends Component {
                     return (
                     <div key={onePref.id}>
                         <img src={onePref.images[0].url} />
+                    </div>)
+                })}
+                </div>
+                <div>
+                {this.state.events.map((oneEvent, i) => {
+                    return (
+                    <div key={oneEvent._id}>
+                        <p>{oneEvent.title}</p>
+                        <p>{oneEvent.description}</p>
                     </div>)
                 })}
                 </div>
