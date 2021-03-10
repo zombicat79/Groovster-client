@@ -1,8 +1,8 @@
 import io from "socket.io-client";
 import React, { useEffect, useState, useRef } from "react";
 import moment from "moment";
+import { withMode } from './../../context/mode-context';
 import { withAuth } from "./../../context/auth-context";
-import { Link } from "react-router-dom";
 import userService from "./../../services/user-service";
 
 let socket;
@@ -37,31 +37,21 @@ const ChatRoom = (props) => {
       forceNew: true,
     });
 
-    //   socket.on('reconnect', function() {
-    //     socket.emit("username", username);
-    //     setIsReady(true);
-    // });
-
     socket.on("connect", () => {
       socket.emit("username", username);
       setIsReady(true);
     });
 
-    socket.on("users", (users) => {
+    socket.on("users", users => {
       setUsers(users);
     });
 
-    socket.on("message", (message) => {
-      console.log("message", message);
-      // setMessages((messages) => [...messages, message]);
-      setMessages((messages) => [...messages, message]);
-
+    socket.on("message", message => {
+      setMessages(messages => [...messages, message]);
     });
 
-    socket.on("connected", (user) => {
-      console.log("user", user);
-
-      setUsers((users) => [...users, user]);
+    socket.on("connected", user => {
+      setUsers(users => [...users, user]);
     });
 
     socket.on("disconnected", (id) => {
@@ -80,13 +70,17 @@ const ChatRoom = (props) => {
     };
   }, []);
 
-  const submit = (event) => {
 
-    console.log("chat Sent", chatId);
+  // const submit = event => {
+  //   event.preventDefault();
+  //   socket.emit("send", message);
+  //   setMessage("");
+  //   dummy.current.scrollIntoView({ behavior: "smooth" });
+  // };
 
-
+  const submit = event => {
     event.preventDefault();
-    socket.emit("send", ({message, chatId}));
+    socket.emit("send", message);
     setMessage("");
     dummy.current.scrollIntoView({ behavior: "smooth" });
   };
@@ -113,20 +107,20 @@ const ChatRoom = (props) => {
                     : "message-display receiver"
                 }`}
               >
-                <p>CHATID: {text.chatId}</p>
+                {/* <p>CHATID: {text.chatId}</p> */}
                 <div className="col-md-3">
                   <span className="time-chat">
                     {moment(date).format("h:mm")}{" "}
                   </span>
-                  {/* {`${user.name === username ? "" : user.name}`} */}
-
-                  {user.name !== username && (
+                  {`${user.name === username ? "" : user.name}`}
+                  {/* {user.name !== username && (
                     <Link to={`/profile/${user.name}`}>
                       <span className="name-link">{user.name}</span>
                     </Link>
-                  )}
+                  )} */}
                 </div>
-                <div className="col-md-2">{text.message}</div>
+                <div className="col-md-2">{text}</div>
+                {/* <div className="col-md-2">{text.message}</div> */}
               </div>
             ))}
             <span ref={dummy} className="dummy"></span>
@@ -149,7 +143,7 @@ const ChatRoom = (props) => {
                   type="submit"
                   className="btn btn-primary send-chat"
                 >
-                  🕊️
+                  🕊
                 </button>
               </span>
             </div>
@@ -160,4 +154,4 @@ const ChatRoom = (props) => {
   );
 };
 
-export default withAuth(ChatRoom);
+export default withAuth(withMode(ChatRoom));

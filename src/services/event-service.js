@@ -9,32 +9,52 @@ class EventService {
   }
 
   createEvent = (artistId, userId, changes) => {
-    const { title, description, date, participants, location, picture } = changes
+    const {
+      title,
+      description,
+      date,
+      participants,
+      location,
+      picture,
+    } = changes;
     const pr = this.api
-    .post(`${artistId}/create`, { creator: userId, title, description, date, participants, location, picture })
-    .then( (response) => response.data)
-
+      .post(`${artistId}/create`, {
+        creator: userId,
+        title,
+        description,
+        date,
+        participants,
+        location,
+        picture,
+      })
+      .then((response) => response.data);
     return pr;
-  }
+  };
 
-//  getEvent by Artist ID
+  //  getEvent by Artist ID
   getEvent = (artistId) => {
-    const pr = this.api
-    .get(`/${artistId}`)
-    .then( (response) => response.data)
+    const pr = this.api.get(`/${artistId}`).then((response) => response.data);
     return pr;
-  }
+  };
 
   //getEvent by Event ID
 
   getEventById = (eventId) => {
     const pr = this.api
-    .get(`/one-event/${eventId}`)
-    .then((response) => response)
-    return pr
-  }
+      .get(`/one-event/${eventId}`)
+      .then((response) => response);
+    return pr;
+  };
 
+  // updateEvent = (id, changes) => {
+  //   const pr = this.api
+  //     .put(`/update/${id}`, changes)
+  //     .then((response) => response);
+  //   return pr;
+  // };
 }
+
+
 
 const eventService = new EventService();
 

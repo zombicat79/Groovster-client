@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -35,7 +36,7 @@ html, body {
 }
 
 .regular-text-light {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 5vw;
   line-height: 8vw;
   text-align: center;
@@ -43,7 +44,7 @@ html, body {
 
 .regular-text-dark {
   color: yellow;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 5vw;
   line-height: 8vw;
   text-align: center;
@@ -98,7 +99,7 @@ html, body {
 }
 
 #main-title-light {
-  font-family: 'Righteous', cursive;
+  font-family: "Righteous", cursive;
   font-size: 15vw;
   text-align: center;
   margin-bottom: 0px;
@@ -106,21 +107,21 @@ html, body {
 
 #main-title-dark {
   color: yellow;
-  font-family: 'Righteous', cursive;
+  font-family: "Righteous", cursive;
   font-size: 15vw;
   text-align: center;
   margin-bottom: 0px;
 }
 
 #motto-light {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 5vw;
   text-align: center;
 }
 
 #motto-dark {
   color: yellow;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 5vw;
   text-align: center;
 }
@@ -144,14 +145,14 @@ html, body {
 }
 
 .input-form-light label {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 7.5vw;
   text-align: center;
 }
 
 .input-form-dark label {
   color: yellow;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 7.5vw;
   text-align: center;
 }
@@ -162,7 +163,7 @@ html, body {
   height: 10vw;
   border-radius: 20vw;
   border: 2px solid green;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 5vw;
   text-align: center;
 }
@@ -173,14 +174,14 @@ html, body {
   height: 10vw;
   border-radius: 20vw;
   border: 2px solid turquoise;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 5vw;
   text-align: center;
 }
 
 #submit-button-light {
   color: white;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 5vw;
   height: 20vw;
   width: 20vw;
@@ -193,7 +194,7 @@ html, body {
 
 #submit-button-dark {
   color: yellow;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 5vw;
   height: 20vw;
   width: 20vw;
@@ -206,7 +207,7 @@ html, body {
 
 #browse-button-light {
   color: white;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 4vw;
   text-align: center;
   height: 20vw;
@@ -220,7 +221,7 @@ html, body {
 
 #browse-button-dark {
   color: yellow;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 5vw;
   text-align: center;
   height: 20vw;
@@ -233,7 +234,7 @@ html, body {
 }
 
 #account-yet-light {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 3vw;
   text-align: center;
   color: white;
@@ -241,7 +242,7 @@ html, body {
 }
 
 #account-yet-dark {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 3vw;
   text-align: center;
   color: yellow;
@@ -262,21 +263,47 @@ html, body {
   padding: 3vw;
 }
 
+/* Main Page */
+
+.input-light {
+  text-align: center;
+  padding: 7px;
+  border-radius: 15px;
+  border: 2px solid green;
+}
+
+.input-dark {
+  color: white;
+  text-align: center;
+  padding: 7px;
+  border-radius: 15px;
+  border: 2px solid green;
+  background-color: rgba(0, 128, 0, 0.288);
+}
+
 .artists-card > link > img {
-  width:100px; 
-  height: auto; 
+  width: 100px;
+  height: auto;
   border-radius: 25px;
   margin: 15px;
 }
 
 .artists-card {
-  display:flex;
+  display: flex;
   margin: 20px;
+  justify-content: center;
 }
 
-.artist-img, .album-image {
-  width:100px; 
-  height: auto; 
+.artists-card > button {
+  padding-top: 40px;
+  height: 50px;
+  border: none;
+}
+
+.artist-img,
+.album-image {
+  width: 100px;
+  height: auto;
   border-radius: 25px;
   margin: 15px;
 }
@@ -285,16 +312,49 @@ html, body {
   display: flex;
   flex-direction: row;
   max-width: 95vw;
-  overflow-x: scroll;  
+  overflow-x: scroll;
 }
+
+/* Album PAGE  */
+.album-page-container > h1,
+.album-page-text {
+  text-align: center;
+}
+
+.album-page-container > .album-image {
+  margin-left: 120px;
+}
+
+.album-page-container-light {
+  color: black;
+}
+
+.album-page-container-dark {
+  color: yellow;
+  background-color: black;
+}
+
+/* CHAT PAGE */
 
 .chat-container {
   max-width: 400px;
   padding: 0px 20px 20px 20px;
 }
 
+.chat-container-light {
+}
+
+.chat-container-dark {
+  background-color: black;
+}
+
+.chat-page-dark {
+  background-color: black;
+  color: yellow;
+}
+
 #messages {
-  border: 15px solid darkcyan;
+  border: 15px solid green;
   border-radius: 25px;
   height: 400px;
   margin-bottom: 15px;
@@ -304,46 +364,98 @@ html, body {
 }
 
 .sender {
-  border: 10px solid rgb(58, 143, 255);
+  border: 10px solid rgb(64, 224, 208, 0.5);
   border-radius: 25px 25px 5px 25px;
   margin: 5px;
   width: 70%;
-  padding: 10px; 
+  padding: 10px;
   float: right;
   margin-left: 45px;
 }
 
-.chat-page, .main-page-container, .artist-page-container, .music-page-container, .album-page-container {
-  margin: 100px 15px 0px 15px;
+.chat-page,
+.main-page-container,
+.artist-page-container,
+.music-page-container,
+.album-page-container {
+  padding: 100px 15px 0px 15px;
+}
+
+.main-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-page-color-dark {
+  background-color: black;
+  color: yellow;
+}
+
+.main-page-color-light {
+  background-color: white;
+}
+
+.font-color-light {
+  color: black;
+}
+
+.font-color-dark {
+  background-color: rgba(0, 128, 0, 0.418);
+  color: white;
+}
+
+.favorite-icon-background-dark {
+  background-color: black;
+}
+
+.favorite-icon-background-btn-dark {
+  background-color: black;
+}
+.favorite-icon-background-btn-light {
+  background-color: white;
+}
+
+.main-page-container > h1 {
+  text-align: center;
+}
+
+.clear-btn {
+  border: solid 2px green;
+  border-radius: 15px;
+  padding: 7px;
+  margin: 8px;
+  background-color: white;
 }
 
 .chat-page > h3 {
-  text-align: center; 
+  text-align: center;
 }
 
 .receiver {
-  border: 10px solid rgb(58, 143, 255);
+  border: 10px solid rgb(64, 224, 208, 0.5);
   border-radius: 5px 25px 25px 25px;
   margin: 5px;
   width: 70%;
-  padding: 10px; 
+  padding: 10px;
 }
 
 .send-chat {
-  background-color: white;
-  border: 5px solid rgb(58, 143, 255);
+  background-color: rgba(36, 138, 36, 0.349);
+  border: 5px solid rgb(64, 224, 208, 0.5);
   border-radius: 20%;
   padding: 5px;
   margin-left: 5px;
 }
 
-.input-group
-{
+.input-group {
   display: flex;
   justify-content: space-between;
 }
 .input-group > input {
-  border: 7px solid darkcyan;
+  border: 7px solid green;
+  background-color: rgba(36, 138, 36, 0.349);
+  color: white;
   border-radius: 25px;
   width: 65vw;
   height: 30px;
@@ -354,13 +466,34 @@ html, body {
 }
 
 .back-btn-chat {
-  position: absolute; 
+  position: absolute;
   right: 37px;
   top: 140px;
 }
 
+.back-btn-album-page {
+  position: absolute;
+  right: 30px;
+  top: 220px;
+}
+
+.back-btn-music-page {
+  position: absolute;
+  right: 30px;
+  top: 150px;
+}
+
+/* MUSIC PAGE */
+.music-page-container-light {
+}
+
+.music-page-container-dark {
+  background-color: black;
+  color: yellow;
+}
+
 .time-chat {
-  font-size: .7rem;
+  font-size: 0.7rem;
 }
 
 a {
@@ -380,14 +513,14 @@ a {
   text-align: center;
 }
 
-.profile-container{
+.profile-container {
   margin: 100px 20px 20px 20px;
 }
 
-
 /* SETTINGS PAGES */
 
-main, .event-page {
+main,
+.event-page {
   margin-top: 30vw;
 }
 
@@ -416,13 +549,12 @@ main, .event-page {
 }
 
 @media screen and (min-width: 540px) {
-  
-/* HOME, LOGIN, SIGNUP PAGES */
+  /* HOME, LOGIN, SIGNUP PAGES */
 
   #cover-background-expanded {
     height: 100%;
   }
-  
+
   .input-form input {
     height: 7vw;
   }

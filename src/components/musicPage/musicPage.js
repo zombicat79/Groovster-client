@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withAuth } from "./../../context/auth-context";
+import { withMode } from './../../context/mode-context';
 import spotifyService from "./../../services/spotify-service";
 import { Link } from "react-router-dom";
 require("dotenv").config();
@@ -12,7 +13,8 @@ class musicPage extends Component {
     followers: 0,
     genres: [],
     albums: [], 
-    songs: []
+    songs: [],
+    mode: "",
   };
 
   retrieveArtist = () => {
@@ -50,11 +52,21 @@ class musicPage extends Component {
     this.retrieveArtist();
     this.retrieveAlbum();
     this.retrieveTracks();
+    this.handleMode();
+  }
+
+  handleMode = () => {
+    if (this.props.modeIsDark === true) {
+      this.setState({ mode: "dark" })
+    }
+    else {
+      this.setState({ mode: "light" })
+    }
   }
 
   render() {
     return (
-      <div className="music-page-container">
+      <div className={`music-page-container music-page-container-${this.state.mode}`}>
         <h1>{this.state.name}</h1>
         <h2>{this.state.albums.length} Albums</h2>
         <div className="album-box">
@@ -81,7 +93,7 @@ class musicPage extends Component {
                 )
             })
             }
-        <button className="back-btn" onClick={this.props.history.goBack}>
+        <button className="back-btn-music-page" onClick={this.props.history.goBack}>
           Go Back
         </button>
       </div>
@@ -89,4 +101,4 @@ class musicPage extends Component {
   }
 }
 
-export default withAuth(musicPage);
+export default withAuth(withMode(musicPage));
