@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withAuth } from './../../context/auth-context';
 import { withMode } from './../../context/mode-context';
 import userService from './../../services/user-service';
+import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -18,66 +19,23 @@ class Settings extends Component {
         username: "",
         email: "",
         image: "",
+        password: "",
         preferences: [],
-        artistSearch: "",
-        genreSearch: "",
         mode: "",
         unfoldedButtons: "folded",
-        switch: false
     }
 
     handleFormSubmit (event) {
         event.preventDefault();
         
         const id = this.props.user._id;
-        const { username, email, image, artistSearch, genreSearch } = this.state;
+        const { username, email, image, password} = this.state;
         
-        if (event.target.name === "modifyProfile") {
-            if (username) {
-                userService.modifyUser(id, {username})
-                .then( (data) => {
-                this.setState({ username: ""})
-                })
-                return;
-            }
-            if (email) {
-                userService.modifyUser(id, {email})
-                .then( (data) => {
-                this.setState({ email: "" })
-                })
-                return;
-            }
-            if (image) {
-                userService.modifyUser(id, {image})
-                .then( (data) => {
-                this.setState({ picture: "" })
-                })
-                return;
-            }
-            if (username && email) {
-                userService.modifyUser(id, {username, email})
-                .then( (data) => {
-                this.setState({ username: "", email: "" })
-                })
-                return;
-            }
-        }
-
-        if (event.target.name === "addArtist") {
-            userService.modifyUser(id, {$push: {preferences: artistSearch}})
-            .then( (data) => {
-            this.setState({ artistSearch: "" })
-            })
-            return;
-        }
-
-        if (event.target.name === "addGenre") {
-            userService.modifyUser(id, {$push: {preferences: genreSearch}})
-            .then( (data) => {
-            this.setState({ genreSearch: "" })
-            })
-            return;
-        }
+        userService.modifyUser(id, {username, email, image, password})
+        .then( (data) => {
+        this.setState({ username: this.state.username, email: this.state.email, image: this.state.image, password: this.state.password });
+        this.props.history.push(`/profile/${this.props.user_id}`);
+        })
     }
 
     handleChange = (event) => {
@@ -124,7 +82,7 @@ class Settings extends Component {
 
     toggleMode = () => {
         this.props.toggleMode();
-        console.log(this.props)
+        this.props.history.push("/")
     }
 
     handleMode = () => {
@@ -175,9 +133,11 @@ class Settings extends Component {
                     />
 
                     <label>Password :</label>
-                    <input className={`settings-input-${this.state.mode}`} />
+                    <input className={`settings-input-${this.state.mode}`} type="password" name="password" placeholder="***" 
+                    value={this.state.password} onChange={(event) => this.handleChange(event)} />
 
                     <input id={`submit-changes-button-${this.state.mode}`} type="submit" value="Change" />
+
                 </form>
                 <div>
                     <button id={`switch-mode-button-${this.state.unfoldedButtons}-${this.state.mode}`} 
