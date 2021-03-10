@@ -9,9 +9,9 @@ class EventService {
   }
 
   createEvent = (artistId, userId, changes) => {
-    const { title, description, date, participants, location } = changes
+    const { title, description, date, participants, location, picture } = changes
     const pr = this.api
-    .post(`${artistId}/create`, { creator: userId, title, description, date, participants, location })
+    .post(`${artistId}/create`, { creator: userId, title, description, date, participants, location, picture })
     .then( (response) => response.data)
 
     return pr;

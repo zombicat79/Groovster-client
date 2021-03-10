@@ -20,22 +20,6 @@ class Profile extends Component {
         mode: ""
     }
 
-    /* getArtist = (artistsId) => {
-        let artistsNames = []
-        console.log(artistsNames)
-
-        for (let i = 0; i < artistsId.length; i++) {
-            spotifyService.getArtist(artistsId[i])
-            .then( (data) => {
-                const stringifiedData = JSON.stringify(data.name)
-                artistsNames.push(stringifiedData)
-            })
-        }
-        
-        console.log(artistsNames)
-        return artistsNames;
-    } */
-
     handleMode = () => {
         if (this.props.modeIsDark === true) {
           this.setState({ mode: "dark" })
@@ -48,15 +32,21 @@ class Profile extends Component {
     componentDidMount = () => {
         this.handleMode();
         const id = this.props.user._id;
-        
-        /* const artistsId = data.preferences;
-        const artistsNames = this.getArtist(artistsId); */
 
         userService.getUser(id)
-        .then( (data) => {
-            console.log(data);
+        .then((data) => {
+            const { username, email, image, preferences } = data
             
-            this.setState({ username: data.username, email: data.email, image: data.image, preferences: data.preferences })
+            if (preferences.length > 0) {
+                spotifyService.getArtists(preferences)
+                .then( (prefs) => {
+                    console.log(prefs.data.body.artists);
+                    this.setState({ username, email, image, preferences: prefs.data.body.artists})
+                })
+            }
+            else {
+                this.setState({ username, email, image, preferences})
+            }
         })
     }
 
@@ -76,8 +66,8 @@ class Profile extends Component {
                 <div>
                 {this.state.preferences.map((onePref, i) => {
                     return (
-                    <div key={onePref}>
-                        <p>{onePref}</p>
+                    <div key={onePref.id}>
+                        <img src={onePref.images[0].url} />
                     </div>)
                 })}
                 </div>

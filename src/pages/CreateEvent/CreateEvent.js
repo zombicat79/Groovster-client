@@ -3,11 +3,16 @@ import { withAuth } from '././../../context/auth-context';
 import eventService from './../../services/event-service';
 import userService from './../../services/user-service';
 
+import axios from 'axios';
+
+import defaultImage from './../../images/groovster-logo.png'
+
 class CreateEvent extends Component {
     state = {
         eventTitle: "",
         eventDescription: "",
         eventDate: "",
+        eventImage: defaultImage,
         participantSearch: "",
         searchResults: [],
         eventParticipants: [],
@@ -32,14 +37,29 @@ class CreateEvent extends Component {
         event.preventDefault();
         const artistId = this.props.match.params.id;
         const userId = this.props.user._id
-        const {eventTitle, eventDate, eventDescription, eventParticipants, eventLocation} = this.state
+        const {eventTitle, eventDate, eventDescription, eventImage, eventParticipants, eventLocation} = this.state
 
-        eventService.createEvent(artistId, userId, {title: eventTitle, description: eventDescription, date: eventDate, participants: eventParticipants, location: eventLocation})
+        eventService.createEvent(artistId, userId, {title: eventTitle, description: eventDescription, date: eventDate, picture: eventImage, participants: eventParticipants, location: eventLocation})
         .then( (data) => {
-            this.setState({eventTitle: "", eventDate: "", eventDescription: "", eventParticipants, eventLocation:""})
+            this.setState({eventTitle: "", eventDate: "", eventDescription: "", eventImage: this.state.eventImage, eventParticipants, eventLocation:""})
         });
         this.props.history.push(`/artist/${artistId}`)
 
+    }
+
+    handleImageUpload = (event) => {
+        const file = event.target.files[0]; // we get the uploaded image
+
+        const uploadData = new FormData();
+        uploadData.append('image', file);
+
+        // we send the photo to the route that uploads it to Cloudinary
+        axios.post(`${process.env.REACT_APP_API_URL}/api/users/photo`, uploadData, { withCredentials: true })
+        .then( (response) => {
+            const {imageUrl} = response.data;
+            this.setState({ eventImage: imageUrl })
+        })
+        .catch( (err) => console.log(err));
     }
 
     addEventParticipant = (event) => {
@@ -60,15 +80,20 @@ class CreateEvent extends Component {
                     </div>
 
                     <div>
-                    <label>Description:</label>
-                    <input type="textarea" name="eventDescription"
-                    value={this.state.eventDescription} onChange={(event) => this.handleChange(event)} />
+                        <label>Description:</label>
+                        <input type="textarea" name="eventDescription"
+                        value={this.state.eventDescription} onChange={(event) => this.handleChange(event)} />
                     </div>
 
                     <div>
-                    <label>Date</label>
-                    <input type="text" name="eventDate" placeholder="dd/mm/yyyy"
-                    value={this.state.eventDate} onChange={(event) => this.handleChange(event)} />
+                        <label>Date</label>
+                        <input type="text" name="eventDate" placeholder="dd/mm/yyyy"
+                        value={this.state.eventDate} onChange={(event) => this.handleChange(event)} />
+                    </div>
+                    <div>
+                        <label>Picture</label>
+                        <img src={this.state.eventImage} />
+                        <input type="file" name="image" onChange={this.handleImageUpload} />
                     </div>
 
                     <div>
@@ -76,12 +101,6 @@ class CreateEvent extends Component {
                     <input type="text" name="eventLocation" 
                     value={this.state.eventLocation} onChange={(event) => this.handleChange(event)} />
                     </div>
-
-                    {/* <div>
-                    <h3>Search for participants:</h3>
-                    <input type="text" name="participantSearch" 
-                    value={this.state.participantSearch} onChange={(event) => this.handleChange(event)} />    
-                    </div> */}
 
                     <div>
                         {this.state.searchResults.map((oneResult, i) => {
