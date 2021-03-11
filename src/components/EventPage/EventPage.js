@@ -14,7 +14,6 @@ export class EventPage extends Component {
     console.log(id);
 
     EventService.getEventById(id)
-      // .populate("participants")
       .then((data) => {
         this.setState({
           event: data.data,
@@ -40,6 +39,7 @@ export class EventPage extends Component {
     console.log("this.state.participants", this.state.participants);
     console.log("this.props.user._id", this.props.user._id);
 
+
     return (
       <div className="event-page">
         <button className="back-btn-chat" onClick={this.props.history.goBack}>
@@ -50,7 +50,7 @@ export class EventPage extends Component {
         <p>description: {this.state.event.description}</p>
         <ul>
           {this.state.participants.map((el, index) => {
-            return <li key={index}>{el}</li>;
+            return <li key={index}>{el.username}</li>;
           })}
         </ul>
 
