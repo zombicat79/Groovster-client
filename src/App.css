@@ -360,7 +360,7 @@ body {
 #messages {
   border: 15px solid green;
   border-radius: 25px;
-  height: 400px;
+  height: 380px;
   margin-bottom: 15px;
   display: flex;
   flex-direction: column;
@@ -383,6 +383,10 @@ body {
 .music-page-container,
 .album-page-container {
   padding: 100px 15px 150px 15px;
+}
+
+.chat-page{
+  padding: 80px 15px 0px 15px;
 }
 
 .main-page-container {
@@ -519,7 +523,7 @@ a {
 }
 
 .dummy {
-  margin-top: 110px;
+  margin-top: 90px;
 }
 
 .col-md-4 > h4 {

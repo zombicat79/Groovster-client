@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import React, { useEffect, useState, useRef } from "react";
 import moment from "moment";
-import { withMode } from './../../context/mode-context';
+import { withMode } from "./../../context/mode-context";
 import { withAuth } from "./../../context/auth-context";
 import userService from "./../../services/user-service";
 
@@ -20,7 +20,6 @@ const ChatRoom = (props) => {
   // Find the chat's params & make the conditionnal (chatParams === text.chatId )
   // const {idChat} = props.match.params;
   // console.log("idChat", idChat);
-  
 
   userService
     .getUser(props.user._id)
@@ -42,16 +41,16 @@ const ChatRoom = (props) => {
       setIsReady(true);
     });
 
-    socket.on("users", users => {
+    socket.on("users", (users) => {
       setUsers(users);
     });
 
-    socket.on("message", message => {
-      setMessages(messages => [...messages, message]);
+    socket.on("message", (message) => {
+      setMessages((messages) => [...messages, message]);
     });
 
-    socket.on("connected", user => {
-      setUsers(users => [...users, user]);
+    socket.on("connected", (user) => {
+      setUsers((users) => [...users, user]);
     });
 
     socket.on("disconnected", (id) => {
@@ -70,20 +69,21 @@ const ChatRoom = (props) => {
     };
   }, []);
 
+  // SUBMIT WITH CHATID
+  const submit = (event) => {
+    event.preventDefault();
+    socket.emit("send", { message, chatId });
+    setMessage("");
+    dummy.current.scrollIntoView({ behavior: "smooth" });
+  };
 
+  // NORMAL SUBMIT
   // const submit = event => {
   //   event.preventDefault();
   //   socket.emit("send", message);
   //   setMessage("");
   //   dummy.current.scrollIntoView({ behavior: "smooth" });
   // };
-
-  const submit = event => {
-    event.preventDefault();
-    socket.emit("send", message);
-    setMessage("");
-    dummy.current.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <div className="chat-container">
@@ -98,33 +98,46 @@ const ChatRoom = (props) => {
       <div className="row">
         <div className="col-md-8">
           <div id="messages">
-            {messages.map(({ user, date, text }, index) => (
-              <div
-                key={index}
-                className={`${
-                  user.name === username
-                    ? "message-display sender"
-                    : "message-display receiver"
-                }`}
-              >
-                {/* <p>CHATID: {text.chatId}</p> */}
-                <div className="col-md-3">
-                  <span className="time-chat">
-                    {moment(date).format("h:mm")}{" "}
-                  </span>
-                  {`${user.name === username ? "" : user.name}`}
-                  {/* {user.name !== username && (
-                    <Link to={`/profile/${user.name}`}>
-                      <span className="name-link">{user.name}</span>
-                    </Link>
-                  )} */}
-                </div>
-                <div className="col-md-2">{text}</div>
-                {/* <div className="col-md-2">{text.message}</div> */}
-              </div>
-            ))}
+            {messages.map(
+              ({ user, date, text }, index) =>
+                text.chatId === chatId && (
+                  <div>
+                    <div
+                      key={index}
+                      className={`${
+                        user.name === username
+                          ? "message-display sender"
+                          : "message-display receiver"
+                      }`}
+                    >
+                      {/* // Improved Chat */}
+                      <div>
+                        <div className="col-md-3">
+                          <span className="time-chat">
+                            {moment(date).format("h:mm")}{" "}
+                          </span>
+                          {`${user.name === username ? "" : user.name}`}
+                        </div>
+                        <div className="col-md-2">{text.message}</div>
+                      </div>
+
+                      {/* // NORMAL CHAT */}
+                      {/* <div className="col-md-3">
+                        <span className="time-chat">
+                          {moment(date).format("h:mm")}{" "}
+                        </span>
+                        {`${user.name === username ? "" : user.name}`}
+                      </div>
+                      <div className="col-md-2">{text}</div>
+                    
+                    </div> */}
+                    </div>
+                  </div>
+                )
+            )}
             <span ref={dummy} className="dummy"></span>
           </div>
+
           <form onSubmit={submit} id="form">
             <div className="input-group">
               <input
