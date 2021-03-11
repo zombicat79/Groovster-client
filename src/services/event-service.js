@@ -46,12 +46,12 @@ class EventService {
     return pr;
   };
 
-  // updateEvent = (id, changes) => {
-  //   const pr = this.api
-  //     .put(`/update/${id}`, changes)
-  //     .then((response) => response);
-  //   return pr;
-  // };
+  updateEvent = (id, changes) => {
+    const pr = this.api
+      .put(`/update/${id}`, changes)
+      .then((response) => response);
+    return pr;
+  };
 }
 
 

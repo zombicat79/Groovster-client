@@ -175,8 +175,9 @@ class Main extends Component {
             value={this.state.search}
             onChange={this.handleChange}
             className={`input-${this.state.mode}`}
+            autoComplete="off"
           />
-          <button className={`clear-btn font-color-${this.state.mode}`}>clear</button>
+          <button className={`clear-btn font-color-clear-${this.state.mode}`}>clear</button>
         </form>
 
         {/* View when using search bar */}

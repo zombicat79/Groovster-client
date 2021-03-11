@@ -45,10 +45,9 @@ class UserService {
   };
 
   modifyUser = (id, changes) => {
-    console.log(changes)
     const pr = this.api
-    .put(`/${id}`, changes)
-    .then( (response) => response.data)
+      .put(`/${id}`, changes)
+      .then( (response) => response.data)
     return pr;
   };
 
