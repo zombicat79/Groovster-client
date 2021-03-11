@@ -1,14 +1,30 @@
 import React, { Component } from "react";
 import EventService from "./../../services/event-service";
 import { withAuth } from "./../../context/auth-context";
+import { withMode } from "./../../context/mode-context";
 import userService from "./../../services/user-service";
+
+import backLight from './../../images/go-back-light.png';
+import backDark from './../../images/go-back-dark.png'
+
+import './EventPage.css'
 
 export class EventPage extends Component {
   state = {
     event: [],
     participants: [],
     participantsArr: [],
+    mode: ""
   };
+
+  handleMode = () => {
+    if (this.props.modeIsDark === true) {
+      this.setState({ mode: "dark" })
+    }
+    else {
+      this.setState({ mode: "light" })
+    }
+  }
 
   retrieveEvent = () => {
     const { id } = this.props.match.params;
@@ -32,6 +48,7 @@ export class EventPage extends Component {
   };
 
   componentDidMount() {
+    this.handleMode();
     this.retrieveEvent();    
   }
 
@@ -42,39 +59,38 @@ export class EventPage extends Component {
     this.setState({participantsArr: newArr})
   }
 
-
   render() {
-    console.log('this.state.event.creator', this.state.event.creator)
-    console.log('this.props.user_id', this.props.user._id)
-
     return (
-      <div className="event-page">
-        <button className="back-btn-chat" onClick={this.props.history.goBack}>
-          ⇦
-        </button>
-        <h1> Event Page </h1>
-        <p>Title: {this.state.event.title}</p>
-        <p>description: {this.state.event.description}</p>
-        <ul>
-          {this.state.participants.map((el, index) => {
-            return <li key={index}>{el.username}</li>;
-          })}
-        </ul>
-
-        {this.state.event.creator===this.props.user._id ? 
-        <h3>YOU CREATED THE EVENT</h3>
-        :
-        this.state.participantsArr.includes(this.props.user._id) ? (
-          <p>You signed up to that event</p>
-        ) : (
-          <button onClick={this.joinEvent}>Join the event!</button>
-        )
-        
-        }
-
-      </div>
+      <main id={`event-main-${this.state.mode}`}>
+        <div>
+          <img id={`event-goback-${this.state.mode}`} 
+                  src={this.state.mode === "light" ? backLight : backDark}
+                  onClick={this.props.history.goBack} />
+          <div id={`one-event-container-${this.state.mode}`}>
+            <h1 id={`event-title-${this.state.mode}`}>{this.state.event.title}</h1>
+            <p><strong>DESCRIPTION:</strong></p>  
+            <p>{this.state.event.description}</p>
+            <p><strong>PARTICIPANTS:</strong></p>
+            <div>
+              {this.state.participants.map((el, index) => {
+                return <p key={index}>{el.username}</p>;
+              })}
+            </div>
+          </div>
+          {this.state.event.creator===this.props.user._id ? 
+          <h3 id={`event-creator-${this.state.mode}`}>WOW! YOU CREATED THE EVENT!</h3>
+          :
+          this.state.participantsArr.includes(this.props.user._id) ? (
+            <p>You signed up to that event</p>
+          ) : (
+            <button id={`join-event-button-${this.state.mode}`} onClick={this.joinEvent}>Join!</button>
+          )
+          
+          }
+        </div>
+      </main>
     );
   }
 }
 
-export default withAuth(EventPage);
+export default withAuth(withMode(EventPage));

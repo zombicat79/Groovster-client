@@ -534,13 +534,6 @@ a {
   margin: 100px 20px 20px 20px;
 }
 
-/* SETTINGS PAGES */
-
-main,
-.event-page {
-  margin-top: 30vw;
-}
-
 /* Artist Page  */
 .artist-page-container {
   text-align: center;

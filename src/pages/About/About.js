@@ -31,7 +31,7 @@ class About extends React.Component {
 
   render() {
     return (
-      <main id={`about-main-${this.state.mode}`} className={`main-${this.state.mode}`}>
+      <main id={`about-main-${this.state.mode}`}>
         <div className={`page-margin-${this.state.mode}`}> 
           <h1 id={`app-name-${this.state.mode}`}>Groovster</h1>
           <h2 className={`regular-text-${this.state.mode}`}>...is a minimal social network for music lovers allowing users to meet fellow band/artist fanatics and connect with them </h2>
