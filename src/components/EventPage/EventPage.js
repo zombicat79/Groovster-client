@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import EventService from "./../../services/event-service";
 import { withAuth } from "./../../context/auth-context";
-import userService from "./../../services/user-service";
 
 export class EventPage extends Component {
   state = {

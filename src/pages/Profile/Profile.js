@@ -59,7 +59,9 @@ class Profile extends Component {
                     ? this.state.mode === "light" 
                         ? avatarLight 
                         : avatarDark
-                    : this.state.image} />
+                    : this.state.image} 
+                    alt="go-back-btn"
+                    />
                     <p className={`profile-info-${this.state.mode}`}>{this.state.username}</p>
                     <p className={`profile-info-${this.state.mode}`}>{this.state.email}</p>
                 </div>
@@ -69,7 +71,7 @@ class Profile extends Component {
                     return (
                     <div key={onePref.id}>
                         <Link to={`/artist/${onePref.id}`}>
-                            <img id={`preference-picture-${this.state.mode}`} src={onePref.images[0].url} />
+                            <img id={`preference-picture-${this.state.mode}`} src={onePref.images[0].url}  alt="favorite-artists"/>
                             <p className={`regular-text-${this.state.mode}`}>{onePref.name}</p>
                         </Link>
                     </div>)

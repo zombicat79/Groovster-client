@@ -93,7 +93,9 @@ class CreateEvent extends Component {
             <main className={`main-${this.state.mode}`}>
                 <img id={`create-goback-${this.state.mode}`} 
                 src={this.state.mode === "light" ? backLight : backDark}
-                onClick={this.props.history.goBack} />
+                onClick={this.props.history.goBack} 
+                    alt="go-back-btn"
+                />
                 <form id={`event-input-form-${this.state.mode}`}>
                     <div>
                         <label>Title:</label>
@@ -114,7 +116,7 @@ class CreateEvent extends Component {
                     </div>
                     <div id={`event-picture-${this.state.mode}`}>
                         <label>Picture:</label>
-                        <img src={this.state.eventImage} />
+                        <img src={this.state.eventImage}  alt="event"/>
                         <input id={`picture-submit-${this.state.mode}`} type="file" name="image" onChange={this.handleImageUpload} />
                     </div>
 

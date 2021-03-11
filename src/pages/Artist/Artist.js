@@ -81,7 +81,9 @@ class Artist extends Component {
           className={this.state.mode === "light" ? `main-light page-margin-light` : null}>
         <img id={`artist-goback-${this.state.mode}`} 
             src={this.state.mode === "light" ? backLight : backDark}
-            onClick={this.props.history.goBack} />
+            onClick={this.props.history.goBack} 
+            alt="go-back-btn"
+            />
         <h1 id={`band-name-${this.state.mode}`}>{this.state.name}</h1>
         <h2 id={`genre-display-${this.state.mode}`}>
           {this.state.genres.map((el, index) => {
