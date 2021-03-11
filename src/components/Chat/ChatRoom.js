@@ -6,7 +6,8 @@ import { withAuth } from "./../../context/auth-context";
 import userService from "./../../services/user-service";
 
 let socket;
-let chatId;
+let userChatId;
+let chatId; 
 
 const ChatRoom = (props) => {
   const [users, setUsers] = useState([]);
@@ -24,7 +25,7 @@ const ChatRoom = (props) => {
   userService
     .getUser(props.user._id)
     .then((data) => {
-      chatId = data.chat;
+      userChatId = data.chat;
       console.log(data.chat);
     })
     .catch((err) => console.log(err));
@@ -46,6 +47,8 @@ const ChatRoom = (props) => {
     });
 
     socket.on("message", (message) => {
+      console.log(message);
+      
       setMessages((messages) => [...messages, message]);
     });
 
@@ -71,10 +74,12 @@ const ChatRoom = (props) => {
 
   // SUBMIT WITH CHATID
   const submit = (event) => {
+    console.log("hjzerkjzehr");
+    
     event.preventDefault();
-    socket.emit("send", { message, chatId });
+    socket.emit("send", { message, userChatId });
     setMessage("");
-    dummy.current.scrollIntoView({ behavior: "smooth" });
+    // dummy.current.scrollIntoView({ behavior: "smooth" });
   };
 
   // NORMAL SUBMIT
@@ -99,8 +104,8 @@ const ChatRoom = (props) => {
         <div className="col-md-8">
           <div id="messages">
             {messages.map(
-              ({ user, date, text }, index) =>
-                text.chatId === chatId && (
+              ({ user, date, text, userChatIdMessage }, index) =>
+              userChatId === userChatIdMessage && (
                   <div>
                     <div
                       key={index}
@@ -118,7 +123,7 @@ const ChatRoom = (props) => {
                           </span>
                           {`${user.name === username ? "" : user.name}`}
                         </div>
-                        <div className="col-md-2">{text.message}</div>
+                        <div className="col-md-2">{text}</div>
                       </div>
 
                       {/* // NORMAL CHAT */}
@@ -132,10 +137,11 @@ const ChatRoom = (props) => {
                     
                     </div> */}
                     </div>
+
                   </div>
                 )
             )}
-            <span ref={dummy} className="dummy"></span>
+           <span ref={dummy} className="dummy"></span>
           </div>
 
           <form onSubmit={submit} id="form">
