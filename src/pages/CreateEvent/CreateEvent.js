@@ -90,7 +90,7 @@ class CreateEvent extends Component {
     
     render() {
         return (
-            <main className={`main-${this.state.mode}`}>
+            <main id={`create-event-main-${this.state.mode}`}>
                 <img id={`create-goback-${this.state.mode}`} 
                 src={this.state.mode === "light" ? backLight : backDark}
                 onClick={this.props.history.goBack} 

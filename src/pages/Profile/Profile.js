@@ -52,7 +52,7 @@ class Profile extends Component {
 
     render() {
          return (
-            <main id={`profile-main-${this.state.mode}`} className={`main-${this.state.mode}`}>
+            <main id={`profile-main-${this.state.mode}`}>
                 <div id={`profile-container-${this.state.mode}`}>
                     <img id={`profile-image-${this.state.mode}`} 
                     src={this.state.image === "/static/media/default-avatar.eb8ac4ec.png"
