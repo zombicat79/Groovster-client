@@ -77,8 +77,11 @@ class Artist extends Component {
     const { id } = this.props.match.params;
 
     return (
-      <div id={`artist-main-${this.state.mode}`} className={`main-light page-margin-${this.state.mode}`}>
-        <img id={`goback-${this.state.mode}`} src={backLight} onClick={this.props.history.goBack} />
+      <div id={this.state.mode === "dark" ? `artist-main-dark` : null}
+          className={this.state.mode === "light" ? `main-light page-margin-light` : null}>
+        <img id={`artist-goback-${this.state.mode}`} 
+            src={this.state.mode === "light" ? backLight : backDark}
+            onClick={this.props.history.goBack} />
         <h1 id={`band-name-${this.state.mode}`}>{this.state.name}</h1>
         <h2 id={`genre-display-${this.state.mode}`}>
           {this.state.genres.map((el, index) => {

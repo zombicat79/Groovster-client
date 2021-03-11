@@ -9,6 +9,8 @@ import axios from 'axios';
 import './../../App.css'
 import './CreateEvent.css'
 import defaultImage from './../../images/groovster-logo.png'
+import backLight from './../../images/go-back-light.png';
+import backDark from './../../images/go-back-dark.png';
 
 class CreateEvent extends Component {
     state = {
@@ -89,6 +91,9 @@ class CreateEvent extends Component {
     render() {
         return (
             <main className={`main-${this.state.mode}`}>
+                <img id={`create-goback-${this.state.mode}`} 
+                src={this.state.mode === "light" ? backLight : backDark}
+                onClick={this.props.history.goBack} />
                 <form id={`event-input-form-${this.state.mode}`}>
                     <div>
                         <label>Title:</label>

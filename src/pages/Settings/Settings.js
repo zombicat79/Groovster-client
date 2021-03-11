@@ -104,7 +104,7 @@ class Settings extends Component {
 
     render() {
         return (
-            <main className={`main-${this.state.mode}`}>
+            <main id={`settings-main-${this.state.mode}`} className={`main-${this.state.mode}`}>
                 <form id={`settings-form-${this.state.mode}`} className={`input-form-${this.state.mode}`} name="modifyProfile" encType="multipart/form-data" 
                 onSubmit={(event) => this.handleFormSubmit(event)}>
                     <label>Username: </label>
