@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withAuth } from "./../../context/auth-context";
+import { withMode } from './../../context/mode-context';
 import userService from "./../../services/user-service";
 import spotifyService from "../../services/spotify-service";
 import authService from "../../services/auth-service";
@@ -21,6 +22,7 @@ class Main extends Component {
     oneArt: [],
     randomArtists: [],
     SeveralArr: [],
+    mode: "",
   };
 
   handleChange = (event) => {
@@ -143,15 +145,26 @@ class Main extends Component {
 
   componentDidMount() {
     this.updatePref();
+    this.handleMode();
+    
+  }
+
+  handleMode = () => {
+    if (this.props.modeIsDark === true) {
+      this.setState({ mode: "dark" })
+    }
+    else {
+      this.setState({ mode: "light" })
+    }
   }
 
   render() {
     console.log("state", this.state);
 
     return (
-      <div className="main-page-container">
+      <div className={`main-page-container main-page-color-${this.state.mode}`}>
         {this.state.preferences.length === 0 && (
-          <h1>Choose your favorite artists :</h1>
+          <h1>Choose your favorite artists</h1>
         )}
 
         <form onSubmit={this.submitForm}>
@@ -161,8 +174,9 @@ class Main extends Component {
             placeholder="Who are you looking for?"
             value={this.state.search}
             onChange={this.handleChange}
+            className={`input-${this.state.mode}`}
           />
-          <button>clear</button>
+          <button className={`clear-btn font-color-${this.state.mode}`}>clear</button>
         </form>
 
         {/* View when using search bar */}
@@ -180,8 +194,8 @@ class Main extends Component {
                   ) : null}
                   <h2>{data.name}</h2>
                 </Link>
-                <button onClick={() => this.addToFav(`${data.id}`)}>
-                  <img src={favoriteNo} alt="favorite-icon" className="favorite-icon"/>
+                <button className={`favorite-icon favorite-icon-background-${this.state.mode}`} onClick={() => this.addToFav(`${data.id}`)}>
+                  <img src={favoriteNo} alt="favorite-icon" className={`favorite-icon favorite-icon-background-${this.state.mode}`}/>
                 </button>
               </div>
             );
@@ -202,8 +216,8 @@ class Main extends Component {
                   ) : null}
                   <h2>{data.name}</h2>
                 </Link>
-                <button onClick={() => this.removeFromFav(`${data.id}`)}>
-                   <img src={favorite} alt="favorite-icon" className="favorite-icon"/>
+                <button className={` favorite-icon-background-btn-${this.state.mode}`} onClick={() => this.removeFromFav(`${data.id}`)}>
+                   <img src={favorite} alt="favorite-icon" className={`favorite-icon favorite-icon-background-${this.state.mode}`}/>
                 </button>
               </div>
             );
@@ -224,8 +238,8 @@ class Main extends Component {
                   )}
                   <h2>{el.name}</h2>
                 </Link>
-                <button onClick={() => this.removeFromFav(`${el.id}`)}>
-                  <img src={favorite} alt="favorite-icon" className="favorite-icon"/>
+                <button className={` favorite-icon-background-btn-${this.state.mode}`} onClick={() => this.removeFromFav(`${el.id}`)}>
+                  <img src={favorite} alt="favorite-icon" className={`favorite-icon favorite-icon-background-${this.state.mode}`}/>
                 </button>
               </div>
             );
@@ -244,8 +258,8 @@ class Main extends Component {
                   )}
                   <h2>{el.name}</h2>
                 </Link>
-                <button onClick={() => this.addToFav(`${el.id}`)}>
-                <img src={favoriteNo} alt="favorite-icon" className="favorite-icon"/>
+                <button className={`favorite-icon-background-btn-${this.state.mode}`} onClick={() => this.addToFav(`${el.id}`)}>
+                <img src={favoriteNo} alt="favorite-icon" className={`favorite-icon favorite-icon-background-${this.state.mode}`}/>
                 </button>
               </div>
             );
@@ -266,8 +280,8 @@ class Main extends Component {
                   )}
                   <h2>{el.name}</h2>
                 </Link>
-                <button onClick={() => this.addToFav(`${el.id}`)}>
-                    <img src={favoriteNo} alt="favorite-icon" className="favorite-icon"/>
+                <button className={`favorite-icon-background-btn-${this.state.mode}`} onClick={() => this.addToFav(`${el.id}`)}>
+                    <img src={favoriteNo} alt="favorite-icon" className={`favorite-icon favorite-icon-background-${this.state.mode}`}/>
                 </button>
               </div>
             );
@@ -277,4 +291,4 @@ class Main extends Component {
   }
 }
 
-export default withAuth(Main);
+export default withAuth(withMode(Main));

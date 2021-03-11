@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withMode } from './../../context/mode-context';
 import spotifyService from './../../services/spotify-service';
 import ChatRoom from './ChatRoom';
 
@@ -9,6 +10,7 @@ import ChatRoom from './ChatRoom';
         popularity: 0,
         followers: 0,
         genres: [],
+        mode: ""
     }
 
     retrieveArtist = () => {
@@ -20,13 +22,24 @@ import ChatRoom from './ChatRoom';
         })
     }
 
+    handleMode = () => {
+        if (this.props.modeIsDark === true) {
+          this.setState({ mode: "dark" })
+        }
+        else {
+          this.setState({ mode: "light" })
+        }
+      }
+
     componentDidMount(){
         this.retrieveArtist();
+        this.handleMode();
+
     }
 
     render() {
         return (
-            <div className="chat-page">
+            <div className={`chat-page chat-page-${this.state.mode}`}>
                 <h3>Welcome to {this.state.name}'s room</h3>
                 <button className="back-btn-chat" onClick={this.props.history.goBack}>
                    ⇦
@@ -38,4 +51,4 @@ import ChatRoom from './ChatRoom';
     }
 }
 
-export default Chat
+export default withMode(Chat)
